@@ -1,7 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "regions": ["dub1"],
+  "regions": [
+    "dub1"
+  ],
   "functions": {
     "api/index.js": {
       "includeFiles": "public/**",

@@ -1,6 +1,5 @@
 'use strict';
 const http=require('node:http');
-const net=require('node:net');
 const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
@@ -9,6 +8,7 @@ const {randomToken,hashToken,hashPassword,checkPassword,parseCookies,parseMultip
 const V=require('./views');
 const AV=require('./academic-views');
 const {registerAcademicRoutes}=require('./academic-routes');
+const {sourceIp}=require('./request-ip');
 const {issueToken,peekToken,consumeToken}=require('./auth');
 const ROLES=['administrador','funcionario','estudante','candidato'];
 const STATES=Object.keys(V.STATUS), PRIORITIES=Object.keys(V.PRIORITY);
@@ -42,19 +42,13 @@ function makeApp({db,uploadDir=path.join(process.cwd(),'uploads'),environment='d
    html(ctx,V.layout({user:ctx.user,title,subtitle,content,route:ctx.url.pathname,csrf:ctx.csrf,unread,alert:ctx.url.searchParams.get('mensagem')||'',error:ctx.url.searchParams.get('erro')||'',institution:await getSetting(db,'institution_name')}));
  }
  function reject(message){throw new Error(message);}
- function sourceIp(ctx){
-   const peer=ctx.req.socket.remoteAddress||'127.0.0.1';
-   if(process.env.TRUST_PROXY!=='true')return peer;
-   const first=String(ctx.req.headers['x-forwarded-for']||'').split(',')[0].trim();
-   return net.isIP(first)?first:peer;
- }
  function limitKey(value){return hashToken(value);}
  async function checkBlocked(key){
    const hit=await one(db,'SELECT blocked_until FROM rate_limits WHERE key=?',limitKey(key));
    if(hit&&hit.blocked_until>Date.now())reject('Demasiadas tentativas. Volte a tentar dentro de alguns minutos.');
  }
  async function rate(ctx,key,max,ms){
-   const raw=`rate:${key}:${sourceIp(ctx)}`,k=limitKey(raw),t=Date.now();
+   const raw=`rate:${key}:${sourceIp(ctx.req)}`,k=limitKey(raw),t=Date.now();
    const row=await one(db,'SELECT * FROM rate_limits WHERE key=?',k);
    if(row?.blocked_until>t||row&&t-row.window_start<ms&&row.count>=max)reject('Demasiadas tentativas. Volte a tentar mais tarde.');
    if(row&&t-row.window_start<ms)await run(db,'UPDATE rate_limits SET count=count+1 WHERE key=?',k);
