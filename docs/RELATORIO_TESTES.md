@@ -2,7 +2,7 @@
 
 ## Execução automatizada
 
-Ambiente: Node.js `v22.16.0`, SQLite integrado com Node.js, servidor HTTP local. Sem dependências npm.
+Ambiente: Node.js `v24.21.0`, SQLite integrado com Node.js, servidor HTTP local. Sem dependências npm.
 
 Comandos executados:
 
@@ -11,7 +11,7 @@ npm run check
 npm test
 ```
 
-**Resultado:** 59 testes aprovados de 59. Sem falhas, sem testes ignorados.
+**Resultado:** 66 testes aprovados de 66. Sem falhas, sem testes ignorados.
 
 Abrangência de testes:
 
@@ -27,16 +27,18 @@ Abrangência de testes:
 - Trabalhos, submissões, restrições de acesso, avaliações e publicação de notas.
 - Gestão de cursos, docentes e pré-inscrições pelo administrador.
 - Tratamento de HTML na interface com escape.
+- Configuração de publicação: caminhos locais vs. `/tmp` da Vercel, entrada `api/index.js` e `vercel.json`.
 
 ## Verificações HTTP locais realizadas
 
-Os testes HTTP automatizados verificaram a página inicial e os recursos `/portal-v5.css`, `/app.css` e `/app.js`. Os testes funcionais também verificaram pré-inscrição, documentos e navegação, sem erros.
+Os testes HTTP automatizados verificaram a página inicial e os recursos `/portal-v5.css`, `/app.css`, `/app.js`, `/theme.css` e as fontes locais. Os testes funcionais também verificaram pré-inscrição, documentos e navegação, sem erros.
+
+Uma simulação do handler serverless com `VERCEL=1` confirmou `/`, `/entrar`, início de sessão, `/painel`, `/saude`, os ficheiros estáticos e a criação da base em `/tmp/ismma`.
 
 ## Verificações não realizadas
 
+- Testes com utilizadores reais, leitores de ecrã e dispositivos físicos; a verificação visual foi feita em Chrome headless a 1440 px e 390 px.
 - Auditoria independente de segurança e testes de penetração.
-- Interface no Chromium, em ecrãs reais Android, ou em ecrãs de 360 px: a execução headless local não concluiu, pelo que o design responsivo só foi verificado por análise de CSS.
-- Testes de acessibilidade com leitor de ecrã.
 - Testes de carga com centenas de estudantes em simultâneo.
 - Integração com SMTP, SMS/WhatsApp, sistemas de matrícula, pagamentos, Moodle, SIGA ou qualquer sistema académico oficial.
 - Instalação real atrás de proxy HTTPS em VPS.

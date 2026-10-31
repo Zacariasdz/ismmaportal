@@ -115,7 +115,7 @@ function makeApp({db,uploadDir=path.join(process.cwd(),'uploads'),environment='d
    const match=ct.match(/^multipart\/form-data;\s*boundary=(?:"([^"]+)"|([^;]+))/i);if(match)return parseMultipart(data,match[1]||match[2]);
    return {fields:{},files:[]};
  }
- function staticFile(ctx){const files={'/portal-v5.css':['portal-v5.css','text/css; charset=utf-8'],'/theme.css':['theme.css','text/css; charset=utf-8'],'/app.css':['app.css','text/css; charset=utf-8'],'/app.js':['app.js','text/javascript; charset=utf-8'],'/selo-ismma-referencia.svg':['selo-ismma-referencia.svg','image/svg+xml'],'/fonts/Butler_Regular.otf':['fonts/Butler_Regular.otf','font/otf'],'/fonts/Butler_Medium.otf':['fonts/Butler_Medium.otf','font/otf'],'/fonts/Butler_Bold.otf':['fonts/Butler_Bold.otf','font/otf'],'/fonts/Gordita-Regular.ttf':['fonts/Gordita-Regular.ttf','font/ttf'],'/fonts/Gordita-Medium.ttf':['fonts/Gordita-Medium.ttf','font/ttf'],'/fonts/Gordita-Bold.ttf':['fonts/Gordita-Bold.ttf','font/ttf']};const match=files[ctx.url.pathname];if(!match)return false;const data=fs.readFileSync(path.join(__dirname,'..','public',match[0]));ctx.res.writeHead(200,{'Content-Type':match[1],'Cache-Control':'public,max-age=300'});ctx.res.end(data);return true;}
+ function staticFile(ctx){const files={'/portal-v5.css':['portal-v5.css','text/css; charset=utf-8'],'/theme.css':['theme.css','text/css; charset=utf-8'],'/app.css':['app.css','text/css; charset=utf-8'],'/app.js':['app.js','text/javascript; charset=utf-8'],'/selo-ismma-referencia.svg':['selo-ismma-referencia.svg','image/svg+xml'],'/fonts/Butler_Regular.otf':['fonts/Butler_Regular.otf','font/otf'],'/fonts/Butler_Medium.otf':['fonts/Butler_Medium.otf','font/otf'],'/fonts/Butler_Bold.otf':['fonts/Butler_Bold.otf','font/otf'],'/fonts/Gordita-Regular.ttf':['fonts/Gordita-Regular.ttf','font/ttf'],'/fonts/Gordita-Medium.ttf':['fonts/Gordita-Medium.ttf','font/ttf'],'/fonts/Gordita-Bold.ttf':['fonts/Gordita-Bold.ttf','font/ttf']};const match=files[ctx.url.pathname];if(!match)return false;const data=fs.readFileSync(path.join(__dirname,'..','public',match[0]));const cache=match[0].startsWith('fonts/')?'public,max-age=31536000,immutable':'public,max-age=300';ctx.res.writeHead(200,{'Content-Type':match[1],'Cache-Control':cache});ctx.res.end(data);return true;}
  function sendFile(ctx,filename,display,mime){const full=path.join(uploadDir,filename);if(!filename||path.basename(filename)!==filename||!fs.existsSync(full)){fail(ctx,404,'Ficheiro indisponível.');return;}const stat=fs.statSync(full);ctx.res.writeHead(200,{'Content-Type':mime,'Content-Length':stat.size,'Content-Disposition':`attachment; filename="documento"; filename*=UTF-8''${encodeURIComponent(display)}`,'X-Content-Type-Options':'nosniff','Cache-Control':'no-store'});fs.createReadStream(full).pipe(ctx.res);}
 
  // Páginas públicas e autenticação.
@@ -363,6 +363,8 @@ function makeApp({db,uploadDir=path.join(process.cwd(),'uploads'),environment='d
      if(req.method==='POST'&&ctx.url)goBack(ctx,err.message||'Não foi possível concluir o pedido.');else fail(ctx,500,'Não foi possível carregar esta página.');
    }finally{const elapsed=Number(process.hrtime.bigint()-start)/1e6;if(elapsed>2000&&environment!=='test')console.warn('[ISMMA] Pedido lento:',req.url,elapsed.toFixed(0)+'ms');}
  }
- return http.createServer(handler);
+ const server=http.createServer(handler);
+ server.handler=handler;
+ return server;
 }
 module.exports={makeApp};

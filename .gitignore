@@ -1,8 +1,17 @@
 .env
+.env.*
+!.env.example
 node_modules/
 data/*
 !data/.gitkeep
 uploads/*
 !uploads/.gitkeep
 backups/
+.vercel
+.vercel/
+.shots*
+.home.png
+*.log
+Portal ISMMA/
+portalisma/
 .DS_Store

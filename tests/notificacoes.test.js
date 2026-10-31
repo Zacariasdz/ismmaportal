@@ -21,7 +21,8 @@ before(async()=>{process.env.MAIL_QUEUE_KEY='ChaveFicticiaParaTestesQueNuncaVaiP
 after(async()=>{await new Promise(ok=>server.close(ok));db.close();fs.rmSync(tmp,{recursive:true,force:true});if(oldKey===undefined)delete process.env.MAIL_QUEUE_KEY;else process.env.MAIL_QUEUE_KEY=oldKey;});
 test('Fase 2 - texto sensível cifrado, sem token em texto na base de dados',()=>{
  const encrypted=protect('TOKEN_FICTICIO_ABC');assert.match(encrypted,/^enc:v1:/);assert.doesNotMatch(encrypted,/TOKEN_FICTICIO_ABC/);assert.equal(unprotect(encrypted),'TOKEN_FICTICIO_ABC');
- assert.throws(()=>unprotect(encrypted.replace(/.$/,'A')));
+ const tampered=encrypted.replace(/^enc:v1:([0-9a-f])/,(_,c)=>'enc:v1:'+(c==='0'?'1':'0'));
+ assert.throws(()=>unprotect(tampered));
 });
 test('Fase 2 - recuperação gera token hashed, uso único e invalida sessões anteriores',async()=>{
  const user=one(db,"SELECT * FROM users WHERE email='estudante@ismma.test'");

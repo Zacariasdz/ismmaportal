@@ -15,7 +15,7 @@ Este projecto evolui a versão anterior do sistema de atendimento, mantendo os p
 
 ## Requisitos
 
-- **Node.js 22.13.0 ou superior** (recomendado Node.js 22 LTS). Confirme com `node -v`.
+- **Node.js 24 LTS** (testado com 24.21.0; exigido pela Vercel e pelo CI). Confirme com `node -v`.
 - VS Code ou outra IDE.
 - Windows 10/11, Ubuntu ou macOS.
 - Sem PHP, MySQL, Docker, Composer, instalação de dependências npm, frameworks ou serviços externos.
@@ -95,9 +95,9 @@ npm run check
 npm test
 ```
 
-Na última verificação neste ambiente, os **60 testes automatizados passaram**. O ambiente executou Node.js v22.16.0. Os testes incluem autenticação, CSRF, gestão de documentos e tickets, migrações, admissão, notas, publicação, gestão académica, submissões, ficheiros privados e permissões.
+Na última verificação neste ambiente, os **66 testes automatizados passaram** em Node.js v24.21.0. Os testes incluem autenticação, CSRF, gestão de documentos e tickets, migrações, admissão, notas, publicação, gestão académica, submissões, ficheiros privados, permissões e a configuração de publicação no GitHub/Vercel.
 
-O conteúdo responsivo está definido em CSS, mas **não foi possível concluir uma inspecção visual automatizada do navegador**. O projecto também não foi submetido a testes de carga, auditoria de segurança independente ou testes de produção.
+A interface foi inspeccionada em Chrome headless a 1440 px e 390 px, incluindo o fluxo de início de sessão e as páginas públicas. Não foram feitos testes com utilizadores reais, testes de carga, auditoria de segurança independente nem testes em produção.
 
 ## Base de dados e conservação
 
@@ -120,6 +120,32 @@ npm run criar-admin
 
 **Produção requer HTTPS, protecção de dados pessoais, revisão de regras académicas, alojamento, recuperação de conta por SMTP, backups externos e auditoria de segurança. Este protótipo não está aprovado para utilização institucional.**
 
+## Publicar no GitHub e na Vercel
+
+O projecto não tem dependências e está preparado para os dois destinos. `api/index.js` expõe a aplicação como função serverless, `vercel.json` encaminha os pedidos e inclui os ficheiros de `public/`, e `.github/workflows/ci.yml` corre as verificações em Node.js 24.
+
+### GitHub
+
+1. Crie um repositório **vazio** no GitHub (sem README, sem `.gitignore`).
+2. Configure o remoto e envie:
+
+```bash
+git remote add origin https://github.com/<conta>/<repositorio>.git
+git push -u origin main
+```
+
+A base SQLite, os anexos, os backups, as capturas de ecrã e o `.env` ficam fora do repositório. Não deve existir qualquer repositório Git aninhado dentro do projecto.
+
+### Vercel
+
+1. Importe o repositório em [vercel.com/new](https://vercel.com/new) com o framework **Other** e sem comando de build.
+2. Configure `APP_URL`, `DEMO_SEED`, `DEMO_PASSWORD`, `SESSION_HOURS` e `CONTACT_EMAIL`.
+3. Confirme Node.js 24 (`.nvmrc` e `engines.node`).
+
+**Limite:** na Vercel só `/tmp` é gravável e é apagado a cada arranque a frio; a base e os anexos são recriados em `/tmp/ismma`. Cada instância da função tem o seu próprio armazenamento, pelo que a Vercel serve para demonstração, não para dados reais. Para uso persistente, use uma VPS com disco (ver `docs/DEPLOY.md`) ou armazenamento externo, que não está incluído.
+
+Detalhes completos: [docs/DEPLOY.md](docs/DEPLOY.md).
+
 ## Identidade visual e fontes
 
 O nome, lema, contacto, morada e alguns cursos foram verificados em páginas públicas do ISMMA. A paleta de azul, branco e apontamentos verdes é uma **proposta de interface académica**, não uma paleta oficial declarada pela instituição. A estrutura inspira-se em portais universitários moçambicanos sem copiar código ou imagens de terceiros.
@@ -134,7 +160,7 @@ A oferta publicada no site pode mudar. Nenhum conteúdo é uma confirmação de 
 - `docs/FLUXOS_DEMONSTRACAO.md`: roteiro de ensaio dos quatro perfis.
 - `docs/FONTES_E_BRANDING.md`: dados institucionais e situação do logótipo.
 - `docs/RELATORIO_TESTES.md`: resultado real de verificações e limitações.
-- `docs/DEPLOY.md`: servidor e cuidados de publicação (da versão de atendimento).
+- `docs/DEPLOY.md`: GitHub, Vercel, VPS Ubuntu e backup.
 - `docs/DECISOES.md`: decisões sobre compatibilidade, dados e funcionalidades.
 
 **Contexto:** existe notícia no próprio site institucional sobre a aprovação da transformação em UMMA em Novembro de 2025. A interface mantém «ISMMA» conforme solicitado, sem alegar que seja a designação institucional definitiva. A entidade responsável deve confirmar a marca a utilizar antes de disponibilizar o sistema ao público.
