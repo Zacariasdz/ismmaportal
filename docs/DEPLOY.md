@@ -22,8 +22,9 @@ O workflow `.github/workflows/ci.yml` executa `npm ci`, `npm run check` e `npm t
 `vercel.json` encaminha todos os pedidos para `api/index.js`, inclui `public/**` no pacote da função e activa `TRUST_PROXY=true`.
 
 1. Em [vercel.com/new](https://vercel.com/new), importe o repositório. Framework: **Other**; não defina comando de build.
-2. Confirme que a versão de Node é 24 (`.nvmrc` e `engines.node`).
-3. Defina as variáveis de ambiente:
+2. Confirme que a versão de Node é 24 (`.nvmrc` e `engines.node`). Se o projecto estiver em `26.x`, a Vercel avisa que o `engines.node` a substitui por `24.x`; ajuste a definição do projecto para `24.x` para eliminar o aviso.
+3. A função corre em `eu-west-1` (mesma região do Supabase) através de `regions` no `vercel.json`, para reduzir a latência por consulta.
+4. Defina as variáveis de ambiente (em **Production** e **Preview**):
 
 | Variável | Valor |
 | --- | --- |
@@ -35,7 +36,7 @@ O workflow `.github/workflows/ci.yml` executa `npm ci`, `npm run check` e `npm t
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` | Opcional, para entrega real de email |
 | `SMS_WEBHOOK_URL`, `SMS_API_KEY` | Opcional, para SMS |
 
-4. Faça o deploy. O endpoint `/saude` confirma o estado da base e do armazenamento.
+5. Faça o deploy. O endpoint `/saude` confirma o estado da base e do armazenamento. Se `DATABASE_URL` faltar, a função responde `503` e o log mostra a causa em vez de `FUNCTION_INVOCATION_FAILED`.
 
 ### Limites importantes da Vercel
 

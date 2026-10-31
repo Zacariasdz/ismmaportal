@@ -356,43 +356,48 @@ CREATE TABLE IF NOT EXISTS admission_files (
 CREATE INDEX IF NOT EXISTS admission_files_application ON admission_files(application_id);
 `;
 
+const literal=value=>"'" + String(value).replace(/'/g,"''") + "'";
+
+// Os valores são constantes deste módulo; não recebem dados de utilizadores.
+function seedsSql(){
+  const settings={
+    institution_name:'Instituto Superior Maria Mãe de África',
+    contact_email:I.email,
+    contact_phone:I.phone,
+    contact_address:I.address,
+    contact_hours:I.hours,
+    institution_motto:I.motto,
+    institution_website:I.website,
+    reopen_days:'7',
+    overdue_days:'3',
+    max_document_mb:'10',
+    show_staff_name:'0'
+  };
+  const settingsRows=Object.entries(settings).map(([key,value])=>`(${literal(key)},${literal(value)})`).join(',');
+  const departmentRows=DEPARTMENTS.map(([name,slug])=>`(${literal(name)},${literal(slug)},${literal(`Atendimento de ${name}`)})`).join(',');
+  const categoryRows=DEPARTMENTS.flatMap(([,slug,categories])=>categories.split(';').map(item=>{
+    const [category,applies]=item.split('|');
+    return `(${literal(slug)},${literal(category)},${literal(applies)})`;
+  })).join(',');
+  const programRows=PROGRAMS.map(([name,code])=>`(${literal(name)},${literal(code)})`).join(',');
+  return `
+INSERT INTO settings(key,value) VALUES ${settingsRows} ON CONFLICT(key) DO NOTHING;
+INSERT INTO departments(name,slug,description,is_active)
+SELECT v.name,v.slug,v.description,1 FROM (VALUES ${departmentRows}) AS v(name,slug,description)
+WHERE NOT EXISTS (SELECT 1 FROM departments d WHERE d.slug=v.slug);
+INSERT INTO categories(department_id,name,applies_to)
+SELECT d.id,v.name,v.applies_to FROM (VALUES ${categoryRows}) AS v(slug,name,applies_to)
+JOIN departments d ON d.slug=v.slug
+ON CONFLICT(department_id,name) DO NOTHING;
+INSERT INTO academic_programs(name,code) VALUES ${programRows} ON CONFLICT(name) DO NOTHING;`;
+}
+
+// Instala o esquema em três viagens à base: o arranque a frio da Vercel tem 30s de limite.
 async function installDatabase(db){
   const client=await db.connect();
   try{
-    await client.query('BEGIN');
-    await client.query('SELECT pg_advisory_xact_lock(74128431)');
-    await client.query(SCHEMA_SQL);
-    const settings={
-      institution_name:'Instituto Superior Maria Mãe de África',
-      contact_email:I.email,
-      contact_phone:I.phone,
-      contact_address:I.address,
-      contact_hours:I.hours,
-      institution_motto:I.motto,
-      institution_website:I.website,
-      reopen_days:'7',
-      overdue_days:'3',
-      max_document_mb:'10',
-      show_staff_name:'0'
-    };
-    for(const [key,value] of Object.entries(settings)){
-      await client.query('INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT(key) DO NOTHING',[key,value]);
-    }
-    for(const [name,slug,categories] of DEPARTMENTS){
-      const found=await client.query('SELECT id FROM departments WHERE slug=$1',[slug]);
-      let id=found.rows[0]?.id;
-      if(!id){
-        const inserted=await client.query('INSERT INTO departments(name,slug,description,is_active) VALUES($1,$2,$3,1) RETURNING id',[name,slug,`Atendimento de ${name}`]);
-        id=inserted.rows[0].id;
-      }
-      for(const item of categories.split(';')){
-        const [category,applies]=item.split('|');
-        await client.query('INSERT INTO categories(department_id,name,applies_to) VALUES($1,$2,$3) ON CONFLICT(department_id,name) DO NOTHING',[id,category,applies]);
-      }
-    }
-    for(const [name,code] of PROGRAMS){
-      await client.query('INSERT INTO academic_programs(name,code) VALUES($1,$2) ON CONFLICT(name) DO NOTHING',[name,code]);
-    }
+    await client.query('BEGIN; SELECT pg_advisory_xact_lock(74128431);');
+    await client.query(SCHEMA_SQL+seedsSql());
     await client.query('COMMIT');
   }catch(error){
     await client.query('ROLLBACK').catch(()=>{});
