@@ -40,8 +40,8 @@ test('a entrada serverless exporta o handler da aplicação',()=>{
 test('vercel.json encaminha pedidos, inclui os estáticos e activa TRUST_PROXY',()=>{
   const config=JSON.parse(fs.readFileSync(path.join(ROOT,'vercel.json'),'utf8'));
   const fn=config.functions['api/index.js'];
-  assert.equal(fn.runtime,'nodejs24.x');
   assert.equal(fn.includeFiles,'public/**');
+  assert.equal(fn.runtime,undefined);
   assert.ok(config.rewrites.some(rule=>rule.source==='/(.*)'&&rule.destination==='/api'));
   assert.equal(config.env.TRUST_PROXY,'true');
 });

@@ -3,7 +3,6 @@
   "framework": null,
   "functions": {
     "api/index.js": {
-      "runtime": "nodejs24.x",
       "includeFiles": "public/**",
       "maxDuration": 30
     }
