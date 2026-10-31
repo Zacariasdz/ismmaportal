@@ -1,380 +1,76 @@
 
-> ismma-portal-academico@5.0.0 test
+> ismma-portal-academico@5.2.0 test
 > node --test tests/*.test.js
 
-TAP version 13
-# (node:1918) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: nova página inicial expõe as quatro áreas sem login
-ok 1 - nova página inicial expõe as quatro áreas sem login
-  ---
-  duration_ms: 30.560284
-  type: 'test'
-  ...
-# Subtest: base simulada contém cursos reais publicados e contas fictícias
-ok 2 - base simulada contém cursos reais publicados e contas fictícias
-  ---
-  duration_ms: 0.317709
-  type: 'test'
-  ...
-# Subtest: pré-inscrição pública recebe dados válidos e cria protocolo rastreável
-ok 3 - pré-inscrição pública recebe dados válidos e cria protocolo rastreável
-  ---
-  duration_ms: 20.403187
-  type: 'test'
-  ...
-# Subtest: pré-inscrição rejeita curso inválido e entradas malformadas
-ok 4 - pré-inscrição rejeita curso inválido e entradas malformadas
-  ---
-  duration_ms: 6.540012
-  type: 'test'
-  ...
-# Subtest: consulta de candidatura só devolve estado com o email correcto
-ok 5 - consulta de candidatura só devolve estado com o email correcto
-  ---
-  duration_ms: 6.126789
-  type: 'test'
-  ...
-# Subtest: estudante só consulta disciplinas nas quais está inscrito
-ok 6 - estudante só consulta disciplinas nas quais está inscrito
-  ---
-  duration_ms: 65.421153
-  type: 'test'
-  ...
-# Subtest: docentes só alteram as suas unidades curriculares
-ok 7 - docentes só alteram as suas unidades curriculares
-  ---
-  duration_ms: 45.174903
-  type: 'test'
-  ...
-# Subtest: notas em rascunho permanecem privadas para estudante
-ok 8 - notas em rascunho permanecem privadas para estudante
-  ---
-  duration_ms: 85.54497
-  type: 'test'
-  ...
-# Subtest: docente cria trabalho e estudante inscrito entrega, terceiro não acede
-ok 9 - docente cria trabalho e estudante inscrito entrega, terceiro não acede
-  ---
-  duration_ms: 131.377995
-  type: 'test'
-  ...
-# Subtest: docente lança nota e só publicação a torna visível
-ok 10 - docente lança nota e só publicação a torna visível
-  ---
-  duration_ms: 141.757222
-  type: 'test'
-  ...
-# Subtest: administrador vê candidaturas e pode decidir, estudante não
-ok 11 - administrador vê candidaturas e pode decidir, estudante não
-  ---
-  duration_ms: 89.130987
-  type: 'test'
-  ...
-# Subtest: administrador cria disciplina e inscreve estudante válido
-ok 12 - administrador cria disciplina e inscreve estudante válido
-  ---
-  duration_ms: 49.902592
-  type: 'test'
-  ...
-# Subtest: formulários académicos rejeitam POST sem token CSRF
-ok 13 - formulários académicos rejeitam POST sem token CSRF
-  ---
-  duration_ms: 44.21147
-  type: 'test'
-  ...
-# Subtest: texto HTML de comunicado é apresentado com escape seguro
-ok 14 - texto HTML de comunicado é apresentado com escape seguro
-  ---
-  duration_ms: 98.036372
-  type: 'test'
-  ...
-# Subtest: pré-inscrição aceita PDF demonstrativo e mantém ficheiro privado
-ok 15 - pré-inscrição aceita PDF demonstrativo e mantém ficheiro privado
-  ---
-  duration_ms: 104.58044
-  type: 'test'
-  ...
-# Subtest: pré-inscrição recusa ficheiros falsificados
-ok 16 - pré-inscrição recusa ficheiros falsificados
-  ---
-  duration_ms: 4.898567
-  type: 'test'
-  ...
-# Subtest: administrador pode registar docente e curso, utilizadores comuns não
-ok 17 - administrador pode registar docente e curso, utilizadores comuns não
-  ---
-  duration_ms: 132.46172
-  type: 'test'
-  ...
-# (node:1919) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: página inicial e CSS respondem sem login
-ok 18 - página inicial e CSS respondem sem login
-  ---
-  duration_ms: 42.691568
-  type: 'test'
-  ...
-# Subtest: SQLite cria departamentos, categorias e contas de demonstração
-ok 19 - SQLite cria departamentos, categorias e contas de demonstração
-  ---
-  duration_ms: 44.456765
-  type: 'test'
-  ...
-# Subtest: login correcto, permissões e redireccionamento
-ok 20 - login correcto, permissões e redireccionamento
-  ---
-  duration_ms: 81.384606
-  type: 'test'
-  ...
-# Subtest: conta inválida não inicia sessão
-ok 21 - conta inválida não inicia sessão
-  ---
-  duration_ms: 52.514391
-  type: 'test'
-  ...
-# Subtest: CSRF obrigatório nos formulários
-ok 22 - CSRF obrigatório nos formulários
-  ---
-  duration_ms: 49.086931
-  type: 'test'
-  ...
-# Subtest: estudante só consulta os seus pedidos
-ok 23 - estudante só consulta os seus pedidos
-  ---
-  duration_ms: 44.646065
-  type: 'test'
-  ...
-# Subtest: candidato só pode criar pedidos em categorias autorizadas
-ok 24 - candidato só pode criar pedidos em categorias autorizadas
-  ---
-  duration_ms: 46.075881
-  type: 'test'
-  ...
-# Subtest: estudante cria pedido e recebe protocolo único
-ok 25 - estudante cria pedido e recebe protocolo único
-  ---
-  duration_ms: 47.720191
-  type: 'test'
-  ...
-# Subtest: funcionário responde a pedidos do seu departamento e só vê os seus
-ok 26 - funcionário responde a pedidos do seu departamento e só vê os seus
-  ---
-  duration_ms: 48.903785
-  type: 'test'
-  ...
-# Subtest: notas internas não aparecem para o estudante
-ok 27 - notas internas não aparecem para o estudante
-  ---
-  duration_ms: 90.370076
-  type: 'test'
-  ...
-# Subtest: estado e prioridade podem ser alterados só por funcionário
-ok 28 - estado e prioridade podem ser alterados só por funcionário
-  ---
-  duration_ms: 92.052754
-  type: 'test'
-  ...
-# Subtest: administrador cria departamentos e tem acesso a relatórios
-ok 29 - administrador cria departamentos e tem acesso a relatórios
-  ---
-  duration_ms: 46.524708
-  type: 'test'
-  ...
-# Subtest: uploads validam o conteúdo real, não só a extensão
-ok 30 - uploads validam o conteúdo real, não só a extensão
-  ---
-  duration_ms: 0.827148
-  type: 'test'
-  ...
-# Subtest: documento privado não é descarregado por candidato
-ok 31 - documento privado não é descarregado por candidato
-  ---
-  duration_ms: 156.541476
-  type: 'test'
-  ...
-# Subtest: registo e envio de notificações na aplicação
-ok 32 - registo e envio de notificações na aplicação
-  ---
-  duration_ms: 42.871499
-  type: 'test'
-  ...
-# Subtest: novo candidato cria conta pelo formulário sem serviços externos
-ok 33 - novo candidato cria conta pelo formulário sem serviços externos
-  ---
-  duration_ms: 40.529398
-  type: 'test'
-  ...
-# Subtest: anexos de pedidos são privados e não aceitam conteúdo falsificado
-ok 34 - anexos de pedidos são privados e não aceitam conteúdo falsificado
-  ---
-  duration_ms: 89.542618
-  type: 'test'
-  ...
-# Subtest: administrador consegue substituir, remover e recuperar documento
-ok 35 - administrador consegue substituir, remover e recuperar documento
-  ---
-  duration_ms: 47.608593
-  type: 'test'
-  ...
-# (node:1920) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: fontes oficiais: nome, localização, contactos e licenciaturas aparecem na página sem scripts externos
-ok 36 - fontes oficiais: nome, localização, contactos e licenciaturas aparecem na página sem scripts externos
-  ---
-  duration_ms: 1.44553
-  type: 'test'
-  ...
-# Subtest: seed cria contacto oficial e cursos comprovados sem transformar dados fictícios em oficiais
-ok 37 - seed cria contacto oficial e cursos comprovados sem transformar dados fictícios em oficiais
-  ---
-  duration_ms: 361.374606
-  type: 'test'
-  ...
-# Subtest: configurações personalizadas não são alteradas por migração idempotente
-ok 38 - configurações personalizadas não são alteradas por migração idempotente
-  ---
-  duration_ms: 4.430611
-  type: 'test'
-  ...
-# Subtest: informação institucional acessível sem sessão, sem divulgar dados privados
-ok 39 - informação institucional acessível sem sessão, sem divulgar dados privados
-  ---
-  duration_ms: 41.197145
-  type: 'test'
-  ...
-# (node:1939) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: portal v5 expõe acessos académicos e atendimento, sem estilo promocional
-ok 40 - portal v5 expõe acessos académicos e atendimento, sem estilo promocional
-  ---
-  duration_ms: 1.177566
-  type: 'test'
-  ...
-# Subtest: navegação pública funciona em telemóveis e mantém rotas existentes
-ok 41 - navegação pública funciona em telemóveis e mantém rotas existentes
-  ---
-  duration_ms: 0.353323
-  type: 'test'
-  ...
-# Subtest: identidade da instituição e recurso gráfico possuem fallback local
-ok 42 - identidade da instituição e recurso gráfico possuem fallback local
-  ---
-  duration_ms: 0.274885
-  type: 'test'
-  ...
-# Subtest: área reservada tem navegação típica de ambiente académico e CSS específico
-ok 43 - área reservada tem navegação típica de ambiente académico e CSS específico
-  ---
-  duration_ms: 14.670382
-  type: 'test'
-  ...
-# Subtest: a página de confirmação mantém visual adaptado sem dependências externas
-ok 44 - a página de confirmação mantém visual adaptado sem dependências externas
-  ---
-  duration_ms: 0.242366
-  type: 'test'
-  ...
-# (node:1946) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: Fase 2 - texto sensível cifrado, sem token em texto na base de dados
-ok 45 - Fase 2 - texto sensível cifrado, sem token em texto na base de dados
-  ---
-  duration_ms: 120.529196
-  type: 'test'
-  ...
-# Subtest: Fase 2 - recuperação gera token hashed, uso único e invalida sessões anteriores
-ok 46 - Fase 2 - recuperação gera token hashed, uso único e invalida sessões anteriores
-  ---
-  duration_ms: 269.469825
-  type: 'test'
-  ...
-# Subtest: Fase 2 - confirmação de email por token e rejeição do uso repetido
-ok 47 - Fase 2 - confirmação de email por token e rejeição do uso repetido
-  ---
-  duration_ms: 82.180175
-  type: 'test'
-  ...
-# Subtest: Fase 2 - serviço SMTP simulado envia, falha e respeita backoff
-ok 48 - Fase 2 - serviço SMTP simulado envia, falha e respeita backoff
-  ---
-  duration_ms: 147.639618
-  type: 'test'
-  ...
-# Subtest: Fase 2 - pedido de recuperação não revela existência de email
-ok 49 - Fase 2 - pedido de recuperação não revela existência de email
-  ---
-  duration_ms: 4.333415
-  type: 'test'
-  ...
-# (node:1961) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: P1 - administrador inicial funciona em produção sem dados fictícios
-ok 50 - P1 - administrador inicial funciona em produção sem dados fictícios
-  ---
-  duration_ms: 146.128038
-  type: 'test'
-  ...
-# Subtest: P2 - parsing CSV aceita caracteres moçambicanos e rejeita colunas erradas
-ok 51 - P2 - parsing CSV aceita caracteres moçambicanos e rejeita colunas erradas
-  ---
-  duration_ms: 0.932006
-  type: 'test'
-  ...
-# Subtest: P2 - estudante não pode registar-se por auto-declaração
-ok 52 - P2 - estudante não pode registar-se por auto-declaração
-  ---
-  duration_ms: 42.958801
-  type: 'test'
-  ...
-# Subtest: P2 - importar, pesquisar e desactivar estudante com autorização do Registo
-ok 53 - P2 - importar, pesquisar e desactivar estudante com autorização do Registo
-  ---
-  duration_ms: 128.029706
-  type: 'test'
-  ...
-# Subtest: P2 - estudante inactivo não acede a documentos privados nem cria pedidos
-ok 54 - P2 - estudante inactivo não acede a documentos privados nem cria pedidos
-  ---
-  duration_ms: 49.487947
-  type: 'test'
-  ...
-# Subtest: P4 - tentativas persistentes e endpoint de saúde
-ok 55 - P4 - tentativas persistentes e endpoint de saúde
-  ---
-  duration_ms: 6.040879
-  type: 'test'
-  ...
-# Subtest: P5 - versões preservadas, acesso negado a estudantes e pesquisa
-ok 56 - P5 - versões preservadas, acesso negado a estudantes e pesquisa
-  ---
-  duration_ms: 102.615131
-  type: 'test'
-  ...
-# Subtest: P6 - responsabilidade e separação de departamentos
-ok 57 - P6 - responsabilidade e separação de departamentos
-  ---
-  duration_ms: 92.913722
-  type: 'test'
-  ...
-# Subtest: migrações idempotentes abrem uma base SQLite anterior
-ok 58 - migrações idempotentes abrem uma base SQLite anterior
-  ---
-  duration_ms: 351.442578
-  type: 'test'
-  ...
-# Subtest: P7 - backup SHA-256 com cifra AES-GCM e rejeição de corrupção
-ok 59 - P7 - backup SHA-256 com cifra AES-GCM e rejeição de corrupção
-  ---
-  duration_ms: 194.524749
-  type: 'test'
-  ...
-1..59
-# tests 59
-# suites 0
-# pass 59
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 2960.468244
+✔ nova página inicial expõe as quatro áreas sem login (8050.4751ms)
+✔ catálogo contém cursos reais e disciplinas de teste isoladas (18.8094ms)
+✔ pré-inscrição pública recebe dados válidos e cria protocolo rastreável (71.9457ms)
+✔ pré-inscrição rejeita curso inválido e entradas malformadas (33.4987ms)
+✔ consulta de candidatura só devolve estado com o email correcto (43.7564ms)
+✔ estudante só consulta disciplinas nas quais está inscrito (285.5568ms)
+✔ docentes só alteram as suas unidades curriculares (169.2567ms)
+✔ notas em rascunho permanecem privadas para estudante (285.3559ms)
+✔ docente cria trabalho e estudante inscrito entrega, terceiro não acede (424.9538ms)
+✔ docente lança nota e só publicação a torna visível (457.8663ms)
+✔ administrador vê candidaturas e pode decidir, estudante não (276.5303ms)
+✔ administrador cria disciplina e inscreve estudante válido (113.7214ms)
+✔ formulários académicos rejeitam POST sem token CSRF (100.3241ms)
+✔ texto HTML de comunicado é apresentado com escape seguro (247.7631ms)
+✔ pré-inscrição aceita PDF demonstrativo e mantém ficheiro privado (252.066ms)
+✔ pré-inscrição recusa ficheiros falsificados (16.2919ms)
+✔ administrador pode registar docente e curso, utilizadores comuns não (304.5525ms)
+✔ página inicial e CSS respondem sem login (8156.6365ms)
+✔ PostgreSQL cria instituição, categorias e contas de teste isoladas (127.9312ms)
+✔ login correcto, permissões e redireccionamento (288.7899ms)
+✔ conta inválida não inicia sessão (102.3545ms)
+✔ CSRF obrigatório nos formulários (130.6192ms)
+✔ estudante só consulta os seus pedidos (159.963ms)
+✔ candidato só pode criar pedidos em categorias autorizadas (132.9128ms)
+✔ estudante cria pedido e recebe protocolo único (216.5276ms)
+✔ funcionário responde a pedidos do seu departamento e só vê os seus (208.2166ms)
+✔ notas internas não aparecem para o estudante (288.065ms)
+✔ estado e prioridade podem ser alterados só por funcionário (248.5794ms)
+✔ administrador cria departamentos e tem acesso a relatórios (132.6823ms)
+✔ uploads validam o conteúdo real, não só a extensão (1.1546ms)
+✔ documento privado não é descarregado por candidato (365.3574ms)
+✔ registo e envio de notificações na aplicação (127.6115ms)
+✔ novo candidato cria conta pelo formulário sem serviços externos (86.2688ms)
+✔ anexos de pedidos são privados e não aceitam conteúdo falsificado (281.1784ms)
+✔ administrador consegue substituir, remover e recuperar documento (168.6181ms)
+✔ configuração local usa as pastas do projecto e a ligação PostgreSQL indicada (3.087ms)
+✔ sem DATABASE_URL a configuração não inventa uma base local (0.4656ms)
+✔ configuração Vercel usa /tmp e ignora caminhos do projecto (0.8004ms)
+✔ a entrada serverless exporta o handler da aplicação (180.0868ms)
+✔ vercel.json encaminha pedidos, inclui os estáticos e activa TRUST_PROXY (0.906ms)
+✔ o projecto declara Node 24 para a Vercel e para o CI (1.2075ms)
+✔ fontes oficiais: nome, localização, contactos e licenciaturas aparecem na página sem scripts externos (14.8347ms)
+✔ seed cria contacto oficial e cursos comprovados sem transformar dados fictícios em oficiais (7985.6706ms)
+✔ configurações personalizadas não são alteradas por migração idempotente (3220.8749ms)
+✔ informação institucional acessível sem sessão, sem divulgar dados privados (1710.0439ms)
+✔ portal v5 expõe acessos académicos e atendimento, sem estilo promocional (2.8569ms)
+✔ navegação pública funciona em telemóveis e mantém rotas existentes (0.3726ms)
+✔ identidade da instituição e recurso gráfico possuem fallback local (2.8101ms)
+✔ área reservada tem navegação típica de ambiente académico e CSS específico (29.7109ms)
+✔ a página de confirmação mantém visual adaptado sem dependências externas (0.2071ms)
+✔ pré-inscrição pública usa walkthrough em 3 passos e resumo antes de submeter (0.4859ms)
+✔ Fase 2 - texto sensível cifrado, sem token em texto na base de dados (8290.4611ms)
+✔ Fase 2 - recuperação gera token hashed, uso único e invalida sessões anteriores (648.5054ms)
+✔ Fase 2 - confirmação de email por token e rejeição do uso repetido (208.8051ms)
+✔ Fase 2 - serviço SMTP simulado envia, falha e respeita backoff (373.0414ms)
+✔ Fase 2 - pedido de recuperação não revela existência de email (14.0618ms)
+✔ P1 - administrador inicial funciona numa base vazia sem dados fictícios (11697.3168ms)
+✔ P2 - parsing CSV aceita caracteres moçambicanos e rejeita colunas erradas (1.6586ms)
+✔ P2 - estudante não pode registar-se por auto-declaração (87.5998ms)
+✔ P2 - importar, pesquisar e desactivar estudante com autorização do Registo (206.7988ms)
+✔ P2 - estudante inactivo não acede a documentos privados nem cria pedidos (66.6754ms)
+✔ P4 - tentativas persistentes e endpoint de saúde (13.0016ms)
+✔ P5 - versões preservadas, acesso negado a estudantes e pesquisa (189.1517ms)
+✔ P6 - responsabilidade e separação de departamentos (155.3268ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 64
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13814.6654

@@ -1,63 +1,52 @@
-# Portal Académico ISMMA - Protótipo de Demonstração
+# Portal Académico ISMMA
 
 **Instituto Superior Maria Mãe de África | Moçambique | Outubro de 2026**
 
-Projecto educativo e independente, criado para demonstrar como poderia funcionar um portal académico institucional. **Não é um serviço oficial do ISMMA, não recebe candidaturas oficiais nem deve recolher dados pessoais reais.**
+Portal académico e de atendimento em Node.js, com base de dados PostgreSQL alojada no Supabase. O projecto mantém autenticação própria (contas e palavras-passe na base de dados) e não depende do Supabase Auth.
 
-Este projecto evolui a versão anterior do sistema de atendimento, mantendo os pedidos, os documentos e a administração, e acrescenta:
+O sistema inclui:
 
-- Página pública do portal com acesso a admissões, estudante, docente e atendimento.
-- **Pré-inscrições** com protocolo `PRE-AAAA-NNNNNN`, curso pretendido, dados fictícios, documentos opcionais e acompanhamento do estado por protocolo e email.
-- **Área dos estudantes** com disciplinas inscritas, calendário/horários, trabalhos, entrega de textos e anexos, notas publicadas e comunicados.
-- **Área dos docentes** com disciplinas atribuídas, publicação de trabalhos, consulta/avaliação de entregas, lançamento de notas (0 a 20 valores) e publicação controlada de resultados.
-- **Administração académica** para registar docentes, cursos, disciplinas, inscrições e analisar pré-inscrições.
-- **Atendimento institucional** com departamentos, pedidos, respostas, documentos privados, notificações e auditoria.
+- Página pública com admissões, acesso de estudante, acesso de docente e atendimento.
+- **Pré-inscrições** com protocolo `PRE-AAAA-NNNNNN`, curso pretendido, documentos opcionais e acompanhamento por protocolo e email.
+- **Área dos estudantes** com disciplinas inscritas, horários, trabalhos, entregas, notas publicadas e comunicados.
+- **Área dos docentes** com disciplinas atribuídas, publicação de trabalhos, avaliação de entregas e lançamento/publicação de notas.
+- **Administração académica** para registar docentes, cursos, disciplinas e inscrições, e para analisar pré-inscrições.
+- **Atendimento institucional** com departamentos, pedidos, respostas, documentos privados, notificações, fila de email e auditoria.
 
 ## Requisitos
 
 - **Node.js 24 LTS** (testado com 24.21.0; exigido pela Vercel e pelo CI). Confirme com `node -v`.
-- VS Code ou outra IDE.
-- Windows 10/11, Ubuntu ou macOS.
-- Sem PHP, MySQL, Docker, Composer, instalação de dependências npm, frameworks ou serviços externos.
+- Uma base **PostgreSQL** — este projecto está configurado para o Supabase (pooler na porta 6543, SSL obrigatório).
+- `npm install` para instalar `pg`. Os testes usam `@electric-sql/pglite` como PostgreSQL embutido.
 
-A aplicação utiliza módulos padrão de Node.js (`node:http`, `node:sqlite`, `node:crypto`, `node:test`) e SQLite guardada num único ficheiro local. O portal utiliza HTML e CSS locais, sem bibliotecas externas. O emblema incluído é uma reconstrução gráfica local, sem fundo, inspirada em referência pública do ISMMA. Continua a ser recomendável substituir este ficheiro pelo timbre oficial autorizado da instituição.
+## Configuração
 
-## Como executar no VS Code
+1. Copie `.env.example` para `.env`.
+2. Defina `DATABASE_URL` com a ligação do Supabase. A palavra-passe deve ser codificada na URL (`@` → `%40`):
 
-1. Extraia o ZIP.
-2. Abra **a pasta que contém `server.js` e `package.json`** no VS Code.
-3. No terminal integrado execute:
+   ```env
+   DATABASE_URL=postgresql://postgres.PROJECTO:PALAVRA%40PASSE@aws-0-REGIAO.pooler.supabase.com:6543/postgres
+   ```
+
+3. Defina `MAIL_QUEUE_KEY` com 32 ou mais caracteres aleatórios (cifra dos tokens e da fila de email).
+4. Instale dependências e inicie:
 
    ```bash
+   npm install
    npm run dev
    ```
 
-4. No navegador abra **http://localhost:3000**.
+5. Abra **http://localhost:3000**.
 
-**Windows:** também pode executar `INICIAR-WINDOWS.bat`.
+Na primeira ligação, o esquema (28 tabelas e índices), as configurações institucionais, os cinco departamentos/categorias e as nove licenciaturas são criados automaticamente. **A aplicação não cria utilizadores, pedidos, disciplinas, notas nem candidaturas de demonstração.**
 
-**Linux/macOS:** execute `bash INICIAR-LINUX.sh`.
+## Criar o primeiro administrador
 
-O ficheiro SQLite é criado automaticamente em `data/ismma.sqlite`, juntamente com utilizadores e aulas fictícias, na primeira execução. Dados e ficheiros não são incluídos no ZIP distribuído.
+```bash
+npm run criar-admin
+```
 
-> Para começar de novo no modo de demonstração, pare o servidor e remova `data/ismma.sqlite`, `data/ismma.sqlite-wal` e `data/ismma.sqlite-shm`, depois execute novamente. **Isto apaga os dados locais. Nunca faça esse procedimento numa instalação com dados que pretenda conservar.**
-
-## Contas fictícias
-
-Todas as contas abaixo usam a palavra-passe **`Demonstracao@2026`**. Estes endereços `.test` não existem e servem apenas para demonstração.
-
-| Perfil | Endereço de entrada | O que experimentar |
-| --- | --- | --- |
-| Administrador | `admin@ismma.test` | Pré-inscrições, cursos, disciplinas, docentes, estudantes, atendimento |
-| Estudante, Gestão de Empresas | `estudante@ismma.test` | Disciplinas, trabalhos, submissões, notas publicadas |
-| Estudante, Gestão de Empresas | `sergio@ismma.test` | Entrega fictícia e aulas da mesma turma |
-| Estudante, Direito | `elisa@ismma.test` | Disciplinas distintas das de Gestão de Empresas |
-| Docente, Gestão e Ética | `docente@ismma.test` | Publicar trabalhos, avaliar e lançar notas |
-| Docente, Contabilidade e Direito | `docente2@ismma.test` | Disciplinas atribuídas a outro docente |
-| Funcionário da Secretaria | `secretaria@ismma.test` | Atendimento por departamento |
-| Candidato | `candidato@ismma.test` | Pré-inscrições e atendimento |
-
-Estes docentes são tecnicamente `funcionario` com o atributo `is_teacher=1`, para manter a compatibilidade com as versões anteriores e com os respectivos testes. Os docentes só podem manipular as disciplinas atribuídas à sua conta.
+O comando pede nome, email, telefone e palavra-passe (ou aceita `ADMIN_PASSWORD` no ambiente). Depois de criado, o administrador pode registar docentes, funcionários e estudantes em `/admin/utilizadores`, e docentes/cursos/disciplinas em `/admin/academico`.
 
 ## Principais endereços
 
@@ -77,16 +66,7 @@ Estes docentes são tecnicamente `funcionario` com o atributo `is_teacher=1`, pa
 | `/pedidos` | Atendimento por departamentos |
 | `/documentos` | Biblioteca de documentos |
 | `/instituicao` | Informações institucionais com fontes |
-
-## Simulações sugeridas
-
-**Estudante:** entre com `estudante@ismma.test`, consulte a disciplina «Fundamentos de Gestão», abra um trabalho e faça uma entrega. Consulte o boletim e confirme que só as notas publicadas aparecem.
-
-**Docente:** entre com `docente@ismma.test`, abra uma das suas disciplinas, publique um novo trabalho, consulte as entregas, avalie e publique notas. Confirme que não consegue lançar notas em disciplinas de outro docente.
-
-**Administrador:** entre com `admin@ismma.test`, abra «Pré-inscrições» e altere o estado de uma candidatura fictícia. Na «Gestão académica», crie uma disciplina, associe um docente e inscreva um estudante.
-
-**Candidato:** use `/pre-inscricao` com dados fictícios. Guarde o protocolo devolvido e use `/acompanhar-candidatura` com o mesmo email.
+| `/saude` | Estado da base de dados e do armazenamento |
 
 ## Testes e verificações
 
@@ -95,82 +75,42 @@ npm run check
 npm test
 ```
 
-Na última verificação neste ambiente, os **66 testes automatizados passaram** em Node.js v24.21.0. Os testes incluem autenticação, CSRF, gestão de documentos e tickets, migrações, admissão, notas, publicação, gestão académica, submissões, ficheiros privados, permissões e a configuração de publicação no GitHub/Vercel.
+Os testes fazem pedidos HTTP reais a um servidor temporário e usam uma instância PostgreSQL embutida (PGlite) por ficheiro de teste, pelo que não precisam de credenciais nem alteram a base do Supabase. Incluem autenticação, CSRF, permissões, pedidos, documentos, admissão, notas, publicação, gestão académica, ficheiros privados, notificações e configuração de publicação. A última execução local passou os **64 testes** em Node.js 24.
 
-A interface foi inspeccionada em Chrome headless a 1440 px e 390 px, incluindo o fluxo de início de sessão e as páginas públicas. Não foram feitos testes com utilizadores reais, testes de carga, auditoria de segurança independente nem testes em produção.
+## Base de dados e anexos
 
-## Base de dados e conservação
+A base vive no PostgreSQL do Supabase; as migrações do esquema são idempotentes e seguras para executar em cada arranque. Os anexos e trabalhos são guardados em `uploads/` (ou em `/tmp/ismma/uploads` na Vercel). A pasta `uploads/` é ignorada pelo Git.
 
-A base de dados é criada em `data/ismma.sqlite`. A pasta `uploads/` contém documentos privados e trabalhos. Ambas são ignoradas pelo Git. As migrações das novas tabelas são idempotentes e podem abrir a base SQLite da versão de atendimento anterior.
+Os catálogos institucionais (configurações, departamentos, categorias e licenciaturas) são configuração e não dados fictícios de utilizadores. Todos os restantes registos são criados pelos utilizadores reais do portal.
 
-**Não copie uma base de dados real por cima dos ficheiros de demonstração.** Faça primeiro um backup verificado. Para operação real, desactive os dados de demonstração e crie um administrador seguro:
-
-```bash
-# Linux / macOS
-DEMO_SEED=false NODE_ENV=production npm run criar-admin
-```
-
-No Windows (PowerShell):
-
-```powershell
-$env:DEMO_SEED="false"
-$env:NODE_ENV="production"
-npm run criar-admin
-```
-
-**Produção requer HTTPS, protecção de dados pessoais, revisão de regras académicas, alojamento, recuperação de conta por SMTP, backups externos e auditoria de segurança. Este protótipo não está aprovado para utilização institucional.**
+**Faça backups através do Supabase** (backups automáticos e/ou `pg_dump`). Não existem scripts locais de cópia SQLite.
 
 ## Publicar no GitHub e na Vercel
 
-O projecto não tem dependências e está preparado para os dois destinos. `api/index.js` expõe a aplicação como função serverless, `vercel.json` encaminha os pedidos e inclui os ficheiros de `public/`, e `.github/workflows/ci.yml` corre as verificações em Node.js 24.
+`api/index.js` expõe a aplicação como função serverless e `vercel.json` encaminha os pedidos e inclui `public/**`.
 
-### GitHub
+1. Crie um repositório vazio no GitHub e envie o código.
+2. Importe o repositório em [vercel.com/new](https://vercel.com/new), framework **Other**, sem build.
+3. Configure as variáveis `DATABASE_URL`, `APP_URL`, `MAIL_QUEUE_KEY` e, se aplicável, SMTP/SMS.
+4. Confirme Node.js 24 (`.nvmrc` e `engines.node`).
 
-1. Crie um repositório **vazio** no GitHub (sem README, sem `.gitignore`).
-2. Configure o remoto e envie:
-
-```bash
-git remote add origin https://github.com/<conta>/<repositorio>.git
-git push -u origin main
-```
-
-A base SQLite, os anexos, os backups, as capturas de ecrã e o `.env` ficam fora do repositório. Não deve existir qualquer repositório Git aninhado dentro do projecto.
-
-### Vercel
-
-1. Importe o repositório em [vercel.com/new](https://vercel.com/new) com o framework **Other** e sem comando de build.
-2. Configure `APP_URL`, `DEMO_SEED`, `DEMO_PASSWORD`, `SESSION_HOURS` e `CONTACT_EMAIL`.
-3. Confirme Node.js 24 (`.nvmrc` e `engines.node`).
-
-**Limite:** na Vercel só `/tmp` é gravável e é apagado a cada arranque a frio; a base e os anexos são recriados em `/tmp/ismma`. Cada instância da função tem o seu próprio armazenamento, pelo que a Vercel serve para demonstração, não para dados reais. Para uso persistente, use uma VPS com disco (ver `docs/DEPLOY.md`) ou armazenamento externo, que não está incluído.
+**Limite:** na Vercel só `/tmp` é gravável e é apagado a cada arranque a frio, pelo que os anexos são efémeros. A base de dados é persistente porque está no Supabase. Para anexos persistentes, use armazenamento de objectos ou uma VPS com disco.
 
 Detalhes completos: [docs/DEPLOY.md](docs/DEPLOY.md).
 
-## Identidade visual e fontes
+## Segurança
 
-O nome, lema, contacto, morada e alguns cursos foram verificados em páginas públicas do ISMMA. A paleta de azul, branco e apontamentos verdes é uma **proposta de interface académica**, não uma paleta oficial declarada pela instituição. A estrutura inspira-se em portais universitários moçambicanos sem copiar código ou imagens de terceiros.
-
-O emblema apresentado pelo portal eKuSchool está documentado em `docs/REVISAO_UI_UX_V4.md`. **Não foi possível obter uma cópia isolada do logótipo original do ISMMA.** A página tenta carregar o recorte real de uma captura pública; sem Internet utiliza uma reconstrução local ilustrativa. Para uso institucional, substituir ambos por um ficheiro oficial autorizado e guardado localmente.
-
-A oferta publicada no site pode mudar. Nenhum conteúdo é uma confirmação de vagas, mensalidades, matrículas, resultados reais ou requisitos actuais de admissão.
+- `.env` está no `.gitignore` e contém credenciais reais: nunca o envie para o repositório.
+- A chave secreta do Supabase não é necessária para esta integração (ligação PostgreSQL directa + autenticação própria); se foi partilhada, rode-a no painel do Supabase.
+- Em produção use HTTPS, `NODE_ENV=production`, `TRUST_PROXY=true` atrás de um proxy fiável e restrinja o acesso à base por rede/IP quando possível.
 
 ## Documentação adicional
 
 - `docs/PORTAL_ACADEMICO.md`: arquitectura, base de dados, permissões e fluxos.
-- `docs/FLUXOS_DEMONSTRACAO.md`: roteiro de ensaio dos quatro perfis.
+- `docs/DEPLOY.md`: GitHub, Vercel, VPS Ubuntu, backups e email.
+- `docs/TESTES.md`: cobertura e execução dos testes.
 - `docs/FONTES_E_BRANDING.md`: dados institucionais e situação do logótipo.
-- `docs/RELATORIO_TESTES.md`: resultado real de verificações e limitações.
-- `docs/DEPLOY.md`: GitHub, Vercel, VPS Ubuntu e backup.
-- `docs/DECISOES.md`: decisões sobre compatibilidade, dados e funcionalidades.
+- `docs/RELATORIO_TESTES.md`: resultado de verificações e limitações.
+- `docs/DECISOES.md`: decisões técnicas.
 
 **Contexto:** existe notícia no próprio site institucional sobre a aprovação da transformação em UMMA em Novembro de 2025. A interface mantém «ISMMA» conforme solicitado, sem alegar que seja a designação institucional definitiva. A entidade responsável deve confirmar a marca a utilizar antes de disponibilizar o sistema ao público.
-
-## Actualização visual v5 - estilo académico, inspirado no Moodle (31/10/2026)
-
-A homepage abandona a apresentação promocional: utiliza um cabeçalho institucional, barra de navegação horizontal azul, breadcrumbs, avisos, lista organizada de serviços e área de acesso reservada. Depois de iniciar sessão, o utilizador encontra uma navegação lateral fixa, conteúdos e disciplinas em painéis simples, tabelas e formulários convencionais. O objectivo é familiaridade com portais universitários usados em Moçambique, em vez de uma página de marketing.
-
-- Não foram adicionadas dependências nem alterada a estrutura da base de dados.
-- `public/portal-v5.css` contém os estilos locais e responsivos, carregados depois do CSS existente para preservar as páginas funcionais.
-- `docs/REVISAO_UI_UX_V5.md` explica referências, opções visuais e limitações.
-- O timbre real continua **pendente de obtenção num ficheiro oficial autorizado**. O elemento gráfico actual é uma referência obtida de captura pública e requer substituição antes de apresentação institucional final.
-- Os dados académicos e as contas continuam a ser fictícios. Não introduzir dados reais neste protótipo.

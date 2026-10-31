@@ -2,12 +2,12 @@
 
 ## Organização
 
-A versão de demonstração mantém as funções de atendimento existentes e adiciona módulos académicos sem frameworks e sem dependências npm.
+A aplicação mantém as funções de atendimento e os módulos académicos sem frameworks, com PostgreSQL (Supabase) como base de dados.
 
 | Ficheiro | Responsabilidade |
 |---|---|
-| `src/db.js` | Esquema de atendimento, utilizadores, sessões, permissões e notificações |
-| `src/academic-db.js` | Tabelas de cursos, disciplinas, inscrições, trabalhos, avaliações, comunicados e candidaturas |
+| `src/db.js` | Ligação PostgreSQL (`pg`), transacções, helpers de consulta, auditoria e notificações |
+| `src/schema.js` | Esquema completo (28 tabelas), índices e catálogos institucionais idempotentes |
 | `src/app.js` | Servidor de rotas de atendimento, autenticação e políticas existentes |
 | `src/academic-routes.js` | Rotas de pré-inscrição e do portal académico, verificações de permissão |
 | `src/views.js` | Layout geral, autenticação, atendimento e administração anterior |
@@ -60,4 +60,4 @@ A média apresentada é **indicativa e simples**, sem ponderações ou efeitos s
 
 ## Evolução para produção
 
-Antes de integrar com estudantes reais, confirmar processos de admissão, registos de matrícula e identidade, regras de avaliação, código de estudante, autenticação institucional, autorização de docentes, privacidade dos dados, auditoria, políticas de retenção e integração com sistema oficial, caso exista. Migrar SQLite para uma base de dados orientada a múltiplos utilizadores quando necessário.
+Antes de integrar com estudantes reais, confirmar processos de admissão, registos de matrícula e identidade, regras de avaliação, código de estudante, autenticação institucional, autorização de docentes, privacidade dos dados, auditoria, políticas de retenção e integração com sistema oficial, caso exista. A base já é PostgreSQL multi-utilizador; resta validar a configuração de rede, backups e limites do plano Supabase.

@@ -2,7 +2,7 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const readline=require('node:readline');
-const {openDatabase,seedDatabase,one,run,audit}=require('../src/db');
+const {openDatabase,one,run,audit}=require('../src/db');
 const {hashPassword,passwordValid}=require('../src/security');
 const root=path.resolve(__dirname,'..');
 const envFile=path.join(root,'.env');
@@ -40,14 +40,13 @@ async function main(){
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>180)throw new Error('Email inválido.');
  if(!/^\+?258\s*8[2-7](?:[\s-]?\d){7}$/.test(phone.replace(/\s/g,'')))throw new Error('Telefone moçambicano inválido.');
  if(!passwordValid(password))throw new Error('A palavra-passe requer 10 a 128 caracteres, maiúsculas, minúsculas e números.');
- const dbFile=path.resolve(root,process.env.DB_FILE||'./data/ismma.sqlite');
- const db=openDatabase(dbFile);
+ if(!process.env.DATABASE_URL)throw new Error('Defina DATABASE_URL com a ligação PostgreSQL do Supabase.');
+ const db=await openDatabase({connectionString:process.env.DATABASE_URL});
  try{
-  seedDatabase(db,{demo:false});
-  if(one(db,'SELECT id FROM users WHERE email=?',email))throw new Error('Já existe uma conta com este email.');
-  const id=Number(run(db,'INSERT INTO users(name,email,phone,password_hash,role,email_verified) VALUES(?,?,?,?,?,1)',name,email,phone,hashPassword(password),'administrador').lastInsertRowid);
-  audit(db,{id},'criou_primeiro_admin','user',id);
+  if(await one(db,'SELECT id FROM users WHERE email=?',email))throw new Error('Já existe uma conta com este email.');
+  const id=Number((await run(db,'INSERT INTO users(name,email,phone,password_hash,role,email_verified) VALUES(?,?,?,?,?,1)',name,email,phone,hashPassword(password),'administrador')).lastInsertRowid);
+  await audit(db,{id},'criou_primeiro_admin','user',id);
   console.log('Administrador criado. Pode iniciar sessão com o email indicado.');
- }finally{db.close();}
+ }finally{await db.close();}
 }
 main().catch(error=>{console.error('Erro:',error.message);process.exitCode=1;});

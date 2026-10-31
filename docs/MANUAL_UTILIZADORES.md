@@ -1,10 +1,10 @@
 # Manual do Portal de Atendimento ISMMA
 
-> Todos os nomes de utilizadores, respostas e números académicos de demonstração são fictícios. Contactos e cursos publicados do ISMMA encontram-se na página `/instituicao`, com fontes, mas este projecto **não é um serviço oficial**.
+> Os dados existentes são os introduzidos pelos utilizadores reais do portal. Contactos e cursos publicados do ISMMA encontram-se na página `/instituicao`, com fontes, mas este projecto **não é um serviço oficial**.
 
 ## Estudante interno
 
-1. A conta de estudante exige validação do número de estudante e do nome numa lista importada pelo Registo Académico. Para testes, use os dados de demonstração.
+1. A conta de estudante exige validação do número de estudante e do nome numa lista importada pelo Registo Académico. O administrador cria a conta e importa o roster em `/admin/estudantes`.
 2. Em **Pedidos > Novo pedido**, seleccione o departamento e a categoria.
 3. Preencha o assunto, descreva a situação e, se necessário, junte até cinco anexos de 5 MB.
 4. Submeta e guarde o número do protocolo que aparecerá na página.

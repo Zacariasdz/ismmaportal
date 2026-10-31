@@ -2,7 +2,7 @@
   "name": "ismma-portal-academico",
   "version": "5.2.0",
   "private": true,
-  "description": "Portal académico ISMMA: admissões, estudantes, docentes, notas, trabalhos e atendimento em Node.js SQLite",
+  "description": "Portal académico ISMMA: admissões, estudantes, docentes, notas, trabalhos e atendimento em Node.js com PostgreSQL (Supabase)",
   "engines": {
     "node": "24.x"
   },
@@ -10,9 +10,14 @@
     "dev": "node --watch server.js",
     "start": "node server.js",
     "test": "node --test tests/*.test.js",
-    "backup": "node scripts/backup.js",
     "criar-admin": "node scripts/criar-admin.js",
-    "restaurar": "node scripts/restaurar.js",
-    "check": "node --check server.js && node --check api/index.js && node --check src/config.js && node --check src/bootstrap.js && node --check src/app.js && node --check src/db.js && node --check src/institution.js && node --check src/views.js && node --check src/security.js && node --check src/auth.js && node --check src/notifier.js && node --check public/app.js && node --check scripts/criar-admin.js && node --check scripts/backup.js && node --check scripts/restaurar.js && node --check src/academic-db.js && node --check src/academic-views.js && node --check src/academic-routes.js"
+    "check": "node --check server.js && node --check api/index.js && node --check src/config.js && node --check src/bootstrap.js && node --check src/app.js && node --check src/db.js && node --check src/schema.js && node --check src/institution.js && node --check src/views.js && node --check src/security.js && node --check src/auth.js && node --check src/notifier.js && node --check public/app.js && node --check scripts/criar-admin.js && node --check src/academic-views.js && node --check src/academic-routes.js"
+  },
+  "dependencies": {
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.14",
+    "@electric-sql/pglite-socket": "^0.2.17"
   }
 }

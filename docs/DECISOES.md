@@ -1,5 +1,17 @@
 # Decisões de implementação
 
+> As entradas abaixo são um registo histórico do protótipo inicial. A decisão mais recente sobre persistência substitui as referências a SQLite.
+
+## Ligação real à base de dados - 31/10/2026
+
+- **PostgreSQL no Supabase, driver `pg`, autenticação própria.** A aplicação liga-se por `DATABASE_URL`; não usa Supabase Auth nem a chave secreta do Supabase. O esquema e os catálogos institucionais são instalados de forma idempotente em `src/schema.js`.
+- **Dados fictícios removidos do código de produção.** Já não existem seeds de utilizadores, pedidos, disciplinas, notas ou candidaturas. Os testes usam `tests/helpers/portal.js` com uma instância PostgreSQL embutida (PGlite), isolada por ficheiro.
+- **Tokens e fila de email cifrados** com `MAIL_QUEUE_KEY` (AES-256-GCM), e não guardados em texto simples.
+- **Sem scripts de backup SQLite.** Os backups passam a ser responsabilidade do Supabase/`pg_dump`; os anexos são copiados separadamente.
+- Mantém-se CommonJS, Node.js 24 e ausência de frameworks; as únicas dependências de execução são `pg` e as ferramentas de teste PGlite.
+- A identidade visual continua a ser uma proposta, não um manual oficial de marca.
+
+## Protótipo inicial - 31/10/2026
 - **31/10/2026:** manter JavaScript CommonJS, SQLite, Node.js 22.13+ e zero pacotes npm. O foco é simplicidade de instalação.
 - **31/10/2026:** apresentar informação oficial em `/instituicao`, com ligações para as fontes; não efectuar recolha automática a cada acesso, pois o portal deve funcionar com pouca internet.
 - **31/10/2026:** conservar a designação ISMMA apesar da notícia de aprovação da UMMA em 2025, por falta de confirmação do nome e das autorizações institucionais para o portal.

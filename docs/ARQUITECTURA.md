@@ -2,9 +2,9 @@
 
 ## Decisões de simplificação
 
-A versão anterior usava Laravel, Livewire, Filament, Composer e MySQL. Esta versão usa um único servidor Node.js, HTML produzido no servidor, CSS responsivo e JavaScript simples no navegador. A persistência usa a biblioteca nativa `node:sqlite`.
+A versão anterior usava Laravel, Livewire, Filament, Composer e MySQL. Esta versão usa um único servidor Node.js, HTML produzido no servidor, CSS responsivo e JavaScript simples no navegador. A persistência usa PostgreSQL (Supabase) através do driver `pg`, com autenticação própria da aplicação.
 
-**Benefícios:** um comando para iniciar, zero dependências npm, sem serviço de base de dados separado, ficheiros fáceis de localizar e baixo consumo de recursos. **Limite:** o SQLite síncrono e o servidor único não foram concebidos para várias instâncias com grande volume de pedidos simultâneos; num ambiente maior, separar a camada de dados e usar ferramentas mais maduras.
+**Benefícios:** base de dados gerida e persistente, várias instâncias da aplicação partilham os mesmos dados, esquema idempotente e transacções reais. **Limite:** depende da rede e do serviço Supabase; os anexos continuam guardados no sistema de ficheiros local (efémero na Vercel).
 
 ## Modelo simplificado de dados
 

@@ -21,9 +21,9 @@ function unprotect(value){
  decipher.setAuthTag(Buffer.from(tag,'hex'));
  return Buffer.concat([decipher.update(Buffer.from(encrypted,'base64')),decipher.final()]).toString('utf8');
 }
-function queueSensitiveEmail(db,recipient,subject,body){
+async function queueSensitiveEmail(db,recipient,subject,body){
  const payload=protect(body);
- run(db,"INSERT INTO mail_outbox(recipient,subject,body,channel) VALUES(?,?,?,'email')",recipient,subject,payload);
+ await run(db,"INSERT INTO mail_outbox(recipient,subject,body,channel) VALUES(?,?,?,'email')",recipient,subject,payload);
 }
 function validAddress(s){return typeof s==='string'&&/^[^\r\n@<> ]+@[^\r\n@<> ]+\.[^\r\n@<> ]+$/.test(s);}
 function encodeHeader(s){return `=?UTF-8?B?${Buffer.from(s,'utf8').toString('base64')}?=`;}
@@ -78,7 +78,7 @@ async function sendWebhook({to,body}){
  if(!res.ok)throw new Error(`Webhook respondeu HTTP ${res.status}.`);
 }
 async function deliverPending(db,{sendEmail=sendSmtp,sendSms=sendWebhook,now=Date.now()}={}){
- const items=all(db,"SELECT * FROM mail_outbox WHERE status IN ('pendente','erro') AND next_try_at<=? AND attempts<5 ORDER BY id LIMIT 20",now);
+ const items=await all(db,"SELECT * FROM mail_outbox WHERE status IN ('pendente','erro') AND next_try_at<=? AND attempts<5 ORDER BY id LIMIT 20",now);
  let sent=0,failed=0;
  for(const item of items){
    if(item.channel==='email'&&!process.env.SMTP_HOST&&sendEmail===sendSmtp)continue;
@@ -87,11 +87,11 @@ async function deliverPending(db,{sendEmail=sendSmtp,sendSms=sendWebhook,now=Dat
      const body=unprotect(item.body);
      if(item.channel==='sms')await sendSms({to:item.recipient,body});
      else await sendEmail({to:item.recipient,subject:item.subject,body});
-     run(db,"UPDATE mail_outbox SET status='enviado',attempts=attempts+1,last_error=NULL WHERE id=?",item.id);
+     await run(db,"UPDATE mail_outbox SET status='enviado',attempts=attempts+1,last_error=NULL WHERE id=?",item.id);
      sent++;
    }catch(error){
      const attempts=item.attempts+1;
-     run(db,"UPDATE mail_outbox SET status=?,attempts=?,last_error=?,next_try_at=? WHERE id=?",attempts>=5?'falhou':'erro',attempts,String(error.message).slice(0,250),now+Math.min(24*3600000,Math.pow(2,attempts)*60000),item.id);
+     await run(db,"UPDATE mail_outbox SET status=?,attempts=?,last_error=?,next_try_at=? WHERE id=?",attempts>=5?'falhou':'erro',attempts,String(error.message).slice(0,250),now+Math.min(24*3600000,Math.pow(2,attempts)*60000),item.id);
      failed++;
    }
  }
