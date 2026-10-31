@@ -1,0 +1,268 @@
+/* ISMMA | Portal académico institucional v5
+   Referências de organização: Moodle da UEM e CEAD / UP Maputo.
+   Aplicação própria, sem reutilização de templates ou activos dessas plataformas. */
+:root{--m5-blue:#174c70;--m5-blue-dark:#103e5c;--m5-green:#237a50;--m5-link:#165d83;--m5-border:#dce2e6;--m5-ink:#28343b;--m5-muted:#63717b;--m5-bg:#f4f6f7;--m5-white:#fff;font-family:Arial,Helvetica,sans-serif;--radius:4px;--shadow:none;--blue:#185f87;--navy:#124762;--ink:#26353e;--border:#dfe5e7;--bg:#f4f6f7;--sub:#5d707b}
+.m5-public,.m5-app{font-family:Arial,Helvetica,sans-serif;background:var(--m5-bg);color:var(--m5-ink);font-size:14px;line-height:1.55}
+.m5-public h1,.m5-public h2,.m5-public h3,.m5-app h1,.m5-app h2,.m5-app h3{font-family:Arial,Helvetica,sans-serif;font-weight:700;letter-spacing:0;line-height:1.3}
+.m5-public p,.m5-app p{color:var(--m5-muted)}
+.m5-public a,.m5-app a{transition:color .14s ease}
+.m5-public a:focus-visible,.m5-app a:focus-visible,.m5-public button:focus-visible,.m5-app button:focus-visible{outline:2px solid #1761ad;outline-offset:2px}
+.m5-container{width:min(1200px,calc(100% - 48px));margin-inline:auto}
+.m5-toptiny{background:#eff2f3;color:#506572;border-bottom:1px solid #dce2e5;font-size:11px}
+.m5-toptiny .m5-container{min-height:31px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.m5-toptiny a:hover{text-decoration:underline;color:var(--m5-blue)}
+.m5-header{background:#fff}
+.m5-header-wrap{min-height:96px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.m5-brand{display:flex;gap:16px;align-items:center;color:#263944;min-width:0}
+.m5-brand>span:last-child{display:flex;flex-direction:column;gap:4px}
+.m5-brand strong{font-size:20px;font-weight:700;line-height:1.24;color:#183c4f}
+.m5-brand small{font-size:12px;color:#637781;letter-spacing:.01em}
+.m5-brand .iv4-brandmark{width:67px;height:76px;border-radius:0;flex:none;border:1px solid #e2e4e6;background:#f0f3f4}
+.m5-brand .iv4-brandmark>img:not(.iv4-local-mark){width:187px!important;left:-5px!important;top:-13px!important}
+.m5-header-actions{display:flex;align-items:center;gap:24px;font-size:12px;color:#455968;text-align:right}
+.m5-header-actions small{color:#778893}
+.m5-login-button{display:flex;align-items:center;gap:10px;padding:10px 17px;border:1px solid #155b84;background:#155b84;color:#fff!important;font-size:13px;font-weight:700;border-radius:3px;white-space:nowrap}
+.m5-login-button svg{height:16px;width:16px}
+.m5-login-button:hover{background:#104b70}
+.m5-mainnav{background:var(--m5-blue);color:#fff;border-bottom:3px solid var(--m5-green);position:relative}
+.m5-mainnav-row{min-height:47px;display:flex;align-items:center;justify-content:space-between}
+.m5-desktop-nav{display:flex;align-items:stretch;flex-wrap:wrap;gap:0}
+.m5-desktop-nav a{display:flex;align-items:center;min-height:47px;padding:0 17px;border-right:1px solid #ffffff19;font-size:12.5px;font-weight:600;color:#eff6fa}
+.m5-desktop-nav a:first-child{border-left:1px solid #ffffff19}
+.m5-desktop-nav a:hover,.m5-desktop-nav a:focus-visible{background:#ffffff24;color:#fff}
+.m5-public .iv4-menu-toggle{display:none;color:#fff;border:1px solid #ffffff63;padding:6px 12px;gap:8px;align-items:center;background:none;border-radius:2px}
+.m5-public .iv4-mobile-nav{background:#184968;position:absolute;inset:100% 0 auto;z-index:20;box-shadow:0 9px 15px #16364d24}
+.m5-public .iv4-mobile-nav[hidden]{display:none!important}
+.m5-public .iv4-mobile-nav a{display:block;color:#fff;padding:12px 25px;border-bottom:1px solid #ffffff1b;font-size:13px}
+.m5-main{min-height:430px}
+.m5-home{padding-bottom:52px}
+.m5-breadcrumb-public{padding:15px 0;color:#7c8a92;font-size:12px}
+.m5-breadcrumb-public span{padding:0 7px;color:#a0acb3}
+.m5-intro{display:flex;justify-content:space-between;align-items:end;gap:24px;margin:3px 0 22px;border-bottom:1px solid var(--m5-border);padding-bottom:22px}
+.m5-overline{display:block;color:#547282;font-weight:700;font-size:11px;letter-spacing:.045em;margin-bottom:7px}
+.m5-intro h1{font-size:31px;color:#234453;margin:0 0 7px}
+.m5-intro p{font-size:13px;max-width:770px;line-height:1.65}
+.m5-intro-side{display:flex;align-items:center;gap:9px;white-space:nowrap;font-size:11px;color:#687882}
+.m5-small-dot{height:7px;width:7px;border-radius:50%;background:#318459}
+.m5-public-grid{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:22px;align-items:start}
+.m5-home-primary,.m5-home-side{display:flex;flex-direction:column;gap:20px;min-width:0}
+.m5-box{background:#fff;border:1px solid var(--m5-border);border-radius:3px;overflow:hidden}
+.m5-box-heading{min-height:49px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;background:#f9fafb;border-bottom:1px solid var(--m5-border)}
+.m5-box-heading h2{font-size:15px;color:#234658}
+.m5-box-heading>a,.m5-box-heading>span{font-size:11.5px;color:#4b6575}
+.m5-box-heading>a{color:var(--m5-link);font-weight:600;white-space:nowrap}
+.m5-box-heading>a:hover{text-decoration:underline}
+.m5-intro-row{padding:23px 25px;display:grid;grid-template-columns:minmax(0,1fr) 221px;gap:30px;align-items:start}
+.m5-intro-row p{font-size:13px;line-height:1.76;margin:0 0 11px}
+.m5-action-row{display:flex;gap:11px;flex-wrap:wrap;margin-top:20px}
+.m5-primary-action,.m5-secondary-action{padding:9px 15px;border:1px solid #1a648b;font-size:12px;font-weight:700;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;min-height:38px}
+.m5-primary-action{background:#17648b;color:#fff!important}
+.m5-primary-action:hover{background:#104b71}
+.m5-secondary-action{color:#175879;background:#fff}
+.m5-secondary-action:hover{background:#f0f6f9}
+.m5-welcome-list{border-left:1px solid var(--m5-border);padding:3px 0 1px 19px;display:flex;flex-direction:column;gap:11px}
+.m5-welcome-list b{font-size:12px;color:#425967;margin-bottom:2px}
+.m5-welcome-list span{display:flex;align-items:center;gap:10px;color:#4c616f;font-size:12px}
+.m5-welcome-list svg{color:#286588;width:17px;height:17px}
+.m5-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.m5-service-item{display:flex;align-items:center;gap:15px;min-height:90px;padding:15px 18px;border-bottom:1px solid #e9edee;color:#294552;transition:background .1s}
+.m5-service-item:nth-child(2n+1){border-right:1px solid #e9edee}
+.m5-service-item:nth-last-child(-n+2){border-bottom:0}
+.m5-service-item:hover{background:#f5f8fa}
+.m5-service-glyph{display:grid;place-items:center;width:36px;height:36px;border:1px solid #cbdde4;background:#f5f9fa;border-radius:3px;flex:none;color:#286a87}
+.m5-service-glyph svg{height:19px;width:19px}
+.m5-service-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
+.m5-service-copy strong{font-size:12.5px;line-height:1.4;color:#244a60}
+.m5-service-copy small{font-size:11px;line-height:1.45;color:#70818b}
+.m5-service-arrow{font-size:20px;color:#7a98a6;font-weight:400}
+.m5-news-box{margin-bottom:0}
+.m5-notice-line{padding:15px 20px;display:grid;grid-template-columns:90px 1fr;gap:16px;border-bottom:1px solid #e9edee}
+.m5-notice-line:last-child{border-bottom:0}
+.m5-note-cat{font-size:11px;font-weight:700;color:#52738b}
+.m5-notice-line strong{display:block;font-size:12.5px;font-weight:650;color:#26526b;margin-bottom:4px}
+.m5-notice-line small{display:block;font-size:11.5px;color:#6f818b}
+.m5-notice-line a:hover{text-decoration:underline}
+.m5-login-body{padding:22px 20px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.m5-login-body>svg{height:32px;width:32px;color:#49728a;stroke-width:1.35}
+.m5-login-body>p{font-size:12px;max-width:180px;margin:14px auto 15px;line-height:1.6}
+.m5-login-wide{display:block;background:#16618a;color:#fff!important;padding:10px 15px;text-align:center;width:100%;font-size:12px;font-weight:700;border-radius:3px}
+.m5-login-wide:hover{background:#104768}
+.m5-text-link{color:#286786;font-size:11px;margin-top:14px}
+.m5-text-link:hover{text-decoration:underline}
+.m5-side-links a{min-height:42px;padding:12px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #edf0f1;font-size:12px;color:#2b607a}
+.m5-side-links a:last-child{border-bottom:0}
+.m5-side-links a:hover{background:#f7f9fb;text-decoration:underline}
+.m5-side-links svg{height:15px;width:15px}
+.m5-support dl{margin:0;padding:15px 18px 18px}
+.m5-support dt{font-size:11px;color:#667b87;font-weight:700;margin-top:12px}
+.m5-support dt:first-child{margin-top:0}
+.m5-support dd{font-size:12.5px;line-height:1.6;margin:4px 0 0;color:#344e5e}
+.m5-support dd a{color:var(--m5-link)}
+.m5-footer{background:#f0f3f4;border-top:1px solid #d9e1e4;color:#475d69}
+.m5-footer-grid{padding:30px 0;display:grid;grid-template-columns:1.5fr .9fr 1fr;gap:35px}
+.m5-footer-grid>div{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.m5-footer-grid strong{color:#314f5f;font-size:12px;margin-bottom:5px}
+.m5-footer-grid p,.m5-footer-grid a,.m5-footer-grid small{font-size:11.5px;line-height:1.75;color:#647885}
+.m5-footer-grid a:hover{text-decoration:underline;color:#175b7f}
+.m5-copyright{border-top:1px solid #dce3e5;padding:15px 0;font-size:11px;color:#7c8b94}
+/* Estilos Moodle-like na área autenticada: navegação e grelhas estáveis. */
+.m5-app{display:flex}
+.m5-app .sidebar{width:241px;top:0;background:#fff;border-right:1px solid #dde4e7;color:#2a4c5f;box-shadow:none}
+.m5-app .brand{min-height:91px;height:auto;padding:13px 15px;gap:9px;border-bottom:1px solid #e0e7e9;background:#fff;color:#244e65}
+.m5-app .brand .iv4-brandmark{width:47px;height:54px;flex:none;border:1px solid #e4e8e9;border-radius:0}
+.m5-app .brand .iv4-brandmark>img:not(.iv4-local-mark){width:135px!important;left:-3px!important;top:-9px!important}
+.m5-app .brand-copy strong{color:#224c66;font-size:20px;letter-spacing:.01em}
+.m5-app .brand-copy small{color:#6a7d86;font-size:11px}
+.m5-app .side-label{margin:12px 12px 19px;color:#577588;background:#f2f5f6;border:1px solid #e0e6e8;border-radius:3px;text-align:left;font-size:10px;font-weight:500;letter-spacing:0;padding:8px 10px}
+.m5-app .navigation{padding:0 10px 20px}
+.m5-app .nav-caption{color:#657b87;font-size:10px;letter-spacing:.05em;margin:0 0 9px;padding:0 12px;font-weight:700}
+.m5-app .nav-caption:not(:first-child){border-top:1px solid #e8ecef;margin-top:19px;padding-top:17px}
+.m5-app .nav-link{border-radius:3px;margin:1px 0;padding:10px 10px;gap:11px;font-size:12.5px;font-weight:500;color:#39596a}
+.m5-app .nav-link svg{width:17px;height:17px;opacity:1;color:#718b9a}
+.m5-app .nav-link:hover{background:#edf3f6;color:#19577b}
+.m5-app .nav-link.selected{color:#175b7c;background:#e5f0f4;font-weight:700}
+.m5-app .nav-link.selected:before{left:0;top:8px;bottom:8px;height:auto;width:3px;background:#1b7394;border-radius:0}
+.m5-app .side-bottom{border-top:1px solid #e2e7e9;padding:13px 12px;background:#fafbfb}
+.m5-app .side-profile{border:0;padding:4px;gap:10px}
+.m5-app .avatar,.m5-app .top-avatar{background:#e9eff3;color:#1b5b7e;border:1px solid #ccdce3;border-radius:50%}
+.m5-app .user-ident strong{color:#33505f;font-size:12px}
+.m5-app .user-ident small{color:#728894;font-size:11px}
+.m5-app .side-logout{color:#4e6d7e;padding:10px 4px 0;font-size:11px}
+.m5-app .side-logout:hover{color:#174f70}
+.m5-app .main-container{margin-left:241px}
+.m5-app .topbar{background:#fff;height:62px;border-bottom:1px solid #dfe6e9;padding:0 30px}
+.m5-app .topbar-left{gap:11px;min-width:0;font-size:12px;color:#657782}
+.m5-app .m5-app-topname{font-weight:700;color:#2b5064;white-space:nowrap}
+.m5-app .m5-top-dash{color:#bdc9ce}
+.m5-app .m5-current-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m5-app .topbar-right{gap:18px}
+.m5-app .topbar-today{font-size:11px}
+.m5-app .top-notification{width:34px;height:34px;border-radius:3px;border-color:#dae3e6}
+.m5-app .m5-profile-short{display:flex;align-items:center;gap:7px;font-size:12px;color:#385d71;max-width:190px}
+.m5-app .m5-profile-short span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m5-app .page-content{padding:19px 28px 36px;max-width:1540px}
+.m5-app .m5-crumbs{display:flex;align-items:center;gap:9px;color:#7c8991;font-size:11px;margin-bottom:16px}
+.m5-app .m5-crumbs a{color:#206486}
+.m5-app .page-heading{align-items:center;margin-bottom:20px}
+.m5-app .page-heading .eyebrow{display:none}
+.m5-app .page-heading h1{font-size:24px;font-weight:700;color:#273f4c}
+.m5-app .page-subtitle{font-size:12px;margin-top:3px}
+.m5-app .footer{font-size:10px;color:#88949c;background:#fff;padding:15px 28px}
+.m5-app .footer a{color:#236388}
+.m5-app .btn{border-radius:3px;box-shadow:none;transform:none!important;min-height:37px;padding:8px 13px;font-size:12px}
+.m5-app .btn-primary{background:#18628c;border-color:#18628c}
+.m5-app .btn-primary:hover{background:#104d70}
+.m5-app .btn-subtle{background:#fff;border:1px solid #cbdce5;color:#215d7d}
+.m5-app .btn-subtle:hover{background:#f0f6f9}
+.m5-app .panel,.m5-app .aca-surface{border:1px solid #dce3e6;border-radius:3px;background:#fff;box-shadow:none}
+.m5-app .panel-head,.m5-app .aca-section-top{background:#f9fafb;border-bottom:1px solid #e3e8ea}
+.m5-app .panel-head h2,.m5-app .aca-section-top h2{font-size:16px;color:#2b4d61}
+.m5-app .stat-card{box-shadow:none;border-radius:3px;background:#fff;border:1px solid var(--m5-border)}
+.m5-app input,.m5-app select,.m5-app textarea{border-radius:3px;background:#fff;min-height:39px;font-size:13px;border-color:#cdd9df}
+.m5-app input:focus,.m5-app select:focus,.m5-app textarea:focus{outline:2px solid #c3e1ed;outline-offset:0;box-shadow:none;border-color:#3485a9}
+.m5-app label{font-size:12px;font-weight:600}
+.m5-app .data-table th{background:#f5f7f8;color:#586a76;font-size:11px}
+.m5-app .aca-welcome{border:1px solid #dbe3e6;border-left:4px solid #2b7857;border-radius:3px;background:#fff;min-height:auto;padding:19px 23px;margin-bottom:15px;color:#2f4653}
+.m5-app .aca-welcome:after{display:none}
+.m5-app .aca-welcome-label{color:#4b7b61;font-size:11px;letter-spacing:.03em}
+.m5-app .aca-welcome h2{color:#284d64;font-size:23px;margin:5px 0}
+.m5-app .aca-welcome p{color:#6b7b83;font-size:12px;max-width:850px}
+.m5-app .aca-welcome-seal{display:none}
+.m5-app .aca-metrics{gap:11px;margin-bottom:18px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.m5-app .aca-metric{border:1px solid #dce3e6;border-radius:3px;box-shadow:none;min-height:auto;padding:15px 18px;background:#fff;display:flex;flex-direction:column}
+.m5-app .aca-metric-icon{display:none}
+.m5-app .aca-metric strong{font-size:22px;color:#255b79;margin:4px 0}
+.m5-app .aca-metric small{color:#657984;font-size:11px}
+.m5-app .aca-subject-row{border-bottom:1px solid #e8edef}
+.m5-app .aca-subject-icon{border-radius:3px;background:#eaf2f5;color:#2d6885}
+.m5-app .aca-subject-banner{border-radius:3px;background:#195977}
+.m5-app .aca-course-grid{gap:12px}
+.m5-app .aca-course-card{border:1px solid #dce3e6;border-radius:3px;box-shadow:none}
+.m5-app .aca-grade-summary{border-radius:3px;background:#f6f9fa;border:1px solid #dce3e6}
+.m5-app .aca-pill{border-radius:3px}
+.m5-app .notice{border-radius:3px}
+.m5-public .auth-bg{background:transparent;min-height:0;padding:32px 20px}
+.m5-public .auth-card{border:1px solid #dce3e6;border-radius:3px;box-shadow:none}
+.m5-public .auth-title h1{font-size:24px;color:#244e62}
+.m5-public .auth-emblem{background:#ecf3f6;color:#285c7b;border-radius:3px}
+.m5-public .btn{border-radius:3px;box-shadow:none}
+.m5-public .btn-primary{background:#17638a}
+.m5-public .admission-wrapper{padding-top:28px}
+.m5-public .admission-card{border-radius:3px;box-shadow:none}
+.m5-public .admission-hero h1{font-family:Arial,Helvetica,sans-serif;font-size:28px}
+.m5-public .admission-result,.m5-public .admission-track{border-radius:3px;box-shadow:none}
+.m5-public .institution-hero{border-radius:3px;background:#eaf1f3}
+.m5-public .institution-panel{border-radius:3px;box-shadow:none}
+@media(max-width:1100px){.m5-public-grid{grid-template-columns:minmax(0,1fr) 248px}.m5-intro-row{grid-template-columns:1fr}.m5-welcome-list{border-left:0;border-top:1px solid #e1e7e9;padding:13px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.m5-app .topbar-today{display:none}}
+@media(max-width:900px){.m5-public-grid{grid-template-columns:1fr}.m5-home-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.m5-home-side .m5-support{grid-column:1/-1}.m5-app .sidebar{transform:translateX(-100%);transition:transform .2s ease}.m5-app .sidebar.is-open{transform:translateX(0)}.m5-app .main-container{margin-left:0}.m5-app .menu-toggle{display:flex;align-items:center}.m5-app .m5-app-topname{display:none}.m5-app .m5-top-dash{display:none}}
+@media(max-width:740px){.m5-desktop-nav{display:none}.m5-public .iv4-menu-toggle{display:flex}.m5-mainnav-row{min-height:43px;justify-content:flex-end}.m5-toptiny .m5-container{gap:7px}.m5-brand strong{font-size:16px}.m5-brand small{font-size:11px}.m5-header-actions>span{display:none}.m5-header-wrap{min-height:78px}.m5-brand .iv4-brandmark{width:51px;height:59px}.m5-brand .iv4-brandmark>img:not(.iv4-local-mark){width:146px!important;top:-10px!important}.m5-login-button{font-size:11px;padding:8px 10px}.m5-login-button svg{display:none}.m5-public .m5-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.m5-public .m5-footer-grid>div:first-child{grid-column:1/-1}}
+@media(max-width:580px){.m5-container{width:calc(100% - 28px)}.m5-toptiny .m5-container>span:last-child{display:none}.m5-brand strong{font-size:13px}.m5-brand small{font-size:10px}.m5-brand{gap:9px}.m5-header-actions{gap:5px}.m5-intro{align-items:start;flex-direction:column;gap:10px}.m5-intro h1{font-size:26px}.m5-intro-side{font-size:10px}.m5-public-grid{gap:14px}.m5-home-primary,.m5-home-side{gap:14px}.m5-service-grid,.m5-home-side{grid-template-columns:1fr}.m5-service-item:nth-child(2n+1){border-right:0}.m5-service-item:nth-last-child(2){border-bottom:1px solid #e9edee}.m5-service-item{min-height:78px}.m5-home-side .m5-support{grid-column:auto}.m5-intro-row{padding:17px}.m5-welcome-list{grid-template-columns:1fr}.m5-notice-line{grid-template-columns:1fr;gap:2px}.m5-public .m5-footer-grid{grid-template-columns:1fr}.m5-public .m5-footer-grid>div:first-child{grid-column:auto}.m5-app .page-content{padding:17px 13px 27px}.m5-app .topbar{padding:0 13px;height:56px}.m5-app .topbar-right{gap:8px}.m5-app .m5-profile-short span{display:none}.m5-app .page-heading h1{font-size:21px}.m5-app .page-heading{flex-wrap:wrap}.m5-app .aca-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.m5-app .footer{flex-direction:column;gap:5px;align-items:start;padding:13px}.m5-app .aca-welcome{padding:16px}.m5-app .aca-welcome h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.m5-public *, .m5-app *{transition:none!important}}
+
+/* v5.1 - correcções de UI do portal e melhoria da pré-inscrição */
+.iv4-brandmark{position:relative;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;background:transparent!important;border:0!important}
+.iv4-brandmark .iv4-single-mark,
+.iv4-brandmark .iv4-local-mark{position:relative!important;inset:auto!important;width:100%!important;height:100%!important;max-width:100%!important;object-fit:contain;display:block;background:transparent!important;left:auto!important;top:auto!important}
+.iv4-brandmark .iv4-mark-fallback{display:none}
+.m5-brand .iv4-brandmark{width:58px;height:66px}
+.m5-app .brand .iv4-brandmark{width:46px;height:54px}
+.m5-app .brand{align-items:flex-start;padding:14px 14px 12px;min-height:84px}
+.m5-app .brand-copy{padding-top:2px;display:flex;flex-direction:column;gap:3px}
+.m5-app .brand-copy strong{font-size:16px;line-height:1.1}
+.m5-app .brand-copy small{font-size:12px;line-height:1.3}
+.m5-app .side-label{margin:10px 12px 16px;font-size:11px;color:#5c7480}
+.m5-app .nav-link{color:#345565;font-weight:600;min-height:42px;display:flex;align-items:center}
+.m5-app .nav-link svg{color:#5d7889}
+.m5-app .nav-link:hover{background:#edf4f7;color:#124e72}
+.m5-app .nav-link.selected{background:#e1edf3;color:#134f73}
+.m5-app .nav-caption{font-size:11px;color:#6d838f}
+.m5-app .page-heading{gap:12px}
+.m5-app .page-heading h1{line-height:1.2}
+.m5-public .admission-wrapper{max-width:980px;padding-top:24px}
+.m5-public .admission-intro{text-align:left;max-width:860px;margin:0 auto 22px}
+.m5-public .admission-intro h1{font-size:30px;margin:10px 0 8px;color:#204c61}
+.m5-public .admission-intro>p{max-width:720px;margin:0;line-height:1.7;color:#657781}
+.m5-public .admission-stepbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.m5-public .admission-stepbar span{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid #dce5ea;background:#fff;border-radius:3px;color:#5d7381;font-size:12px;font-weight:700}
+.m5-public .admission-stepbar span b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#edf3f6;color:#205b7b;font-size:13px;flex:none}
+.m5-public .admission-stepbar span small{display:block;font-size:12px;color:inherit}
+.m5-public .admission-stepbar span.is-active{border-color:#2d7797;background:#eef6fa;color:#184f70}
+.m5-public .admission-stepbar span.is-active b{background:#2d7797;color:#fff}
+.m5-public .admission-stepbar span.is-done{border-color:#6da685;background:#f4faf6;color:#275c45}
+.m5-public .admission-stepbar span.is-done b{background:#2f7a53;color:#fff}
+.m5-public .admission-card{border:1px solid #dce4e8;border-radius:3px;box-shadow:none;padding:26px 28px}
+.m5-public .admission-form-title{margin-bottom:18px;padding-bottom:15px}
+.m5-public .admission-form-title h2{font-size:20px;color:#23495d}
+.m5-public .admission-form-title p{font-size:12px;color:#6a7c86}
+.m5-public .admission-form-title b{border-radius:3px;background:#edf3f6;color:#1d5a7b;min-width:36px;height:36px}
+.m5-public .admission-step-hint{margin:-6px 0 18px;color:#6e8089;font-size:12px}
+.m5-public .admission-stage{display:flex;flex-direction:column;gap:0}
+.m5-public .admission-form .form-grid{gap:16px 20px}
+.m5-public .admission-form label{color:#365463}
+.m5-public .admission-form input,
+.m5-public .admission-form select{background:#fff;border-color:#ccd8de}
+.m5-public .admission-review{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;margin:3px 0 18px}
+.m5-public .admission-review div{background:#f8fafb;border:1px solid #dde6ea;border-radius:3px;padding:13px 14px;min-height:74px}
+.m5-public .admission-review small{display:block;color:#6c808b;font-size:11px;margin-bottom:5px}
+.m5-public .admission-review strong{display:block;color:#23485c;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.m5-public .admission-nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.m5-public .admission-nav .btn{min-width:160px}
+.m5-public .admission-consent{background:#f6f9fa;border:1px solid #dde5e9;border-radius:3px;padding:16px 18px;margin:8px 0 0}
+.m5-public .admission-submit{width:auto;min-width:220px;padding-inline:18px!important}
+@media(max-width:740px){
+  .m5-brand .iv4-brandmark{width:50px;height:57px}
+  .m5-app .brand{min-height:78px}
+  .m5-public .admission-stepbar{grid-template-columns:1fr}
+}
+@media(max-width:580px){
+  .m5-app .sidebar{width:270px;max-width:84vw}
+  .m5-app .brand{padding:12px 12px 10px;min-height:72px}
+  .m5-app .brand .iv4-brandmark{width:40px;height:48px}
+  .m5-app .brand-copy strong{font-size:15px}
+  .m5-app .brand-copy small{font-size:11px}
+  .m5-app .nav-link{min-height:40px;padding:9px 10px}
+  .m5-public .admission-card{padding:20px 16px}
+  .m5-public .admission-review{grid-template-columns:1fr}
+  .m5-public .admission-nav{flex-direction:column}
+  .m5-public .admission-nav .btn{width:100%}
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="55 65 290 330" role="img" aria-label="Emblema do Instituto Superior Maria Mãe de África">
+  <defs>
+    <path id="ismma-arc-top" d="M86 214 A114 114 0 0 1 314 214"/>
+    <path id="ismma-arc-bottom" d="M100 228 A100 100 0 0 0 300 228"/>
+  </defs>
+  <g fill="#0e1114">
+    <text font-size="16" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing=".8">
+      <textPath href="#ismma-arc-top" startOffset="50%" text-anchor="middle">INSTITUTO SUPERIOR MARIA MÃE DE ÁFRICA</textPath>
+    </text>
+    <text font-size="16" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="1">
+      <textPath href="#ismma-arc-bottom" startOffset="50%" text-anchor="middle">ISMMA</textPath>
+    </text>
+    <path d="M138 147c-35 35-45 80-24 132 10 23 26 37 47 48-24-9-43-23-53-46-24-54-12-109 26-144z"/>
+    <path d="M185 151c-20-10-34-4-47 10 7-25 25-38 48-37 20 1 36 13 47 29 8 11 17 22 29 24-9 14-26 19-40 10-10-7-15-23-28-29-6-4-10-4-9-7z"/>
+    <path d="M199 178c-15-12-25-6-31 9-4 12 2 22 11 31 3 14-1 29-8 38-16 19-13 48-2 69h76c7-31 3-53-13-70-11-12-17-27-16-43-2-12-4-23-17-34z"/>
+    <path d="M255 176c20 7 24 21 13 37 17-2 28-14 26-29-2-16-15-31-39-34z"/>
+    <path d="M153 168c17-30 53-49 92-43 25 4 47 18 62 37-18-15-40-24-62-26-35-3-67 11-92 32z"/>
+  </g>
+  <path fill="#ffffff" d="M194 177c-3 12 4 24 17 32-12 3-24-4-27-14-3-8 0-14 10-18z"/>
+  <path fill="#ffffff" d="M211 216c-25 16-39 44-39 79 5-2 10-4 14-7 4-34 14-53 33-66z"/>
+  <path fill="none" stroke="#0e1114" stroke-width="6" d="M163 168c-13-24 7-47 29-51"/>
+</svg>

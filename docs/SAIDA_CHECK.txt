@@ -1,0 +1,4 @@
+
+> ismma-portal-academico@5.0.0 check
+> node --check server.js && node --check src/app.js && node --check src/db.js && node --check src/institution.js && node --check src/views.js && node --check src/security.js && node --check src/auth.js && node --check src/notifier.js && node --check public/app.js && node --check scripts/criar-admin.js && node --check scripts/backup.js && node --check scripts/restaurar.js && node --check src/academic-db.js && node --check src/academic-views.js && node --check src/academic-routes.js
+
